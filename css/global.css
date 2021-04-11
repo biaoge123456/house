@@ -1,0 +1,126 @@
+/*global css*/
+*{font-family: "Microsoft YaHei",'微软雅黑','思源黑体 CN','Source Han Sans CN',"Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB",Arial,sans-serif;-webkit-text-size-adjust:none;-webkit-tap-highlight-color: transparent;-webkit-tap-highlight-color:rgba(0, 0, 0, 0); outline:none; box-shadow: none;}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,p,form,fieldset,input,textarea,blockquote{padding:0;margin:0;font-size:14px;color:#000;}
+h1,h2,h3,h4,h5,h6,th{font-weight:normal;}
+li{list-style-type:none;}
+img{border:none;min-width:1px;}
+table{border-collapse:collapse;border: none;}
+input,select,textarea{outline:none;background:none;border:none;}
+td,tr{padding: 0;margin: 0;border: none;}
+select{  appearance:none; -moz-appearance:none; -webkit-appearance:none;} select::-ms-expand{display:none;}
+textarea{resize: none;}
+button{background: none;padding: 0;margin: 0;border: none;cursor: pointer;}
+
+/*常用类*/
+.fl{float:left;}
+.fr{float:right;}
+.relative{position:relative;z-index: 1;}
+.absolute{position:absolute;}
+.absolute.max{left: 0;top: 0;right: 0;bottom: 0;}
+.fixed{position:fixed;}
+.fz0{font-size:0;}
+.user-select{    user-select:none; -webkit-user-select:none; -ms-user-select:none; -moz-user-select:none;}
+.img{font-size:0;}
+.img img{max-width: 100%;max-height: 100%;}
+.bgcover{background-repeat: no-repeat;background-size: cover;background-position: center center;}
+/*display快速设置*/
+.hide{display:none;}
+.block{display:block;}
+.inline{display:inline;}
+.inline-block{display:inline-block;*display:inline;zoom:1;}
+.table{display:table;}
+
+.td{display:table-cell;}
+.tr{display:table-row;}
+/*超出隐藏*/
+.over{overflow:hidden;}
+/*图片在div居中*/
+.m-pic{text-align:center;display:block;font-size:0;}
+.m-pic b{display:inline-block;height:100%;vertical-align:middle;}
+.m-pic img{vertical-align:middle;max-width:100%;max-height:100%;}
+/*div居中*/
+.m-div{text-align:center;display:block;font-size:0;}
+.m-div  > b{display:inline-block;height:100%;vertical-align:middle;}
+.m-div > div{vertical-align:middle;max-width:100%;max-height:100%;display: inline-block;}
+/*鼠标移过图片放大*/
+.b-pic{overflow:hidden;}
+.b-pic img{-webkit-transition:0.5s;-moz-transition:0.5s;transition:0.5s;-webkit-transform:scale(1);-moz-transform:scale(1);transform:scale(1);}
+.b-pic:hover img{-webkit-transform:scale(1.4);-moz-transform:scale(1.4);transform:scale(1.4);}
+/*图片占满div*/
+.i-pic{overflow:hidden;font-size:0;}
+.i-pic img{width:100%;min-height:100%;}
+/*对齐方式*/
+.text-left{text-align:left;}
+.text-right{text-align:right;}
+.text-center{text-align:center;}
+.text-justify{text-align:justify;}
+/*当前行超出，显示省略号*/
+.text-over{text-overflow:ellipsis;overflow:hidden;white-space:nowrap;}
+/*几行内超出，显示省略号*/
+.text-line{overflow:hidden;text-overflow:ellipsis;display:-webkit-box !important;-webkit-box-orient:vertical;-webkit-line-clamp:2;}
+.text-line.line3{-webkit-line-clamp:3;}
+.text-line.line4{-webkit-line-clamp:4;}
+.text-line.line5{-webkit-line-clamp:5;}
+/*强行不换行*/
+.nowrap,[nowrap]{white-space:nowrap;}
+/*强行换行*/
+.break{white-space:normal;word-break:break-all;word-wrap: break-word;}
+/*垂直对齐方式*/
+.v-middle{vertical-align:middle;}
+.v-top{vertical-align:top;}
+.v-bottom{vertical-align:bottom;}
+.v-middle-child *{vertical-align: middle;}
+/*边框盒子处理*/
+.border-box{-moz-box-sizing:border-box;-webkit-box-sizing: border-box;box-sizing: border-box;}
+/*css3变换时间300毫秒*/
+.trans{-webkit-transition:all 300ms ease 0s;transition:all 300ms ease 0s;outline:none;-moz-transition: all 300ms ease;-o-transition: all 300ms ease;}
+.trans.t700{-webkit-transition:all 700ms ease 0s;transition:all 700ms ease 0s;outline:none;-moz-transition: all 700ms ease;-o-transition: all 700ms ease;}
+
+/*鼠标手型*/
+.pointer{cursor:pointer !important;}
+/*英文大写*/
+.upper{text-transform:uppercase;}
+/*英文小写*/
+.lower{text-transform:lowercase;}
+/*宽高100%*/
+.maxh{height:100%;}
+.maxw{width:100%;}
+/*最多宽度设置*/
+.cw1920{max-width: 1920px;margin: auto;}
+.cw1600{max-width: 1600px;margin: auto;}
+.cw1400{max-width: 1400px;margin: auto;}
+.cw1340{max-width: 1340px;margin: auto;}
+.cw1200{max-width: 1200px;margin: auto;}
+/*wow*/
+.wow{visibility:hidden;}
+/*编辑器*/
+.editor{line-height:1.8;}
+.editor *{font-size:inherit;color:inherit;font-family:inherit;}
+.editor ul li{list-style:disc inside;padding-left:10px;}
+.editor ol li{list-style:decimal inside;padding-left:10px;}
+.editor img{max-width:100%;height:auto !important;}
+.editor a{color: #0782C1;text-decoration:inherit;}
+
+/*padding*/
+.clear{margin:0px auto;clear:both;height:0px;font-size:0px;overflow:hidden;position: relative;}
+.clear.a{top: -54px;display:block;height: 1px;width: 100%;position: relative;}
+.clean{zoom:1;}
+.clean:after,
+.clean:before{content:'';display:table;}
+.clean:after{clear:both;}
+
+.blank3{margin:0px auto;clear:both;height:3px;font-size:1px;overflow:hidden;}
+.blank6{margin:0px auto;clear:both;height:6px;font-size:1px;overflow:hidden;}
+.blank9{margin:0px auto;clear:both;height:9px;font-size:1px;overflow:hidden;}
+.blank12{margin:0px auto;clear:both;height:12px;font-size:1px;overflow:hidden;}
+.blank15{margin:0px auto;clear:both;height:15px;font-size:1px;overflow:hidden;}
+.blank20{margin:0px auto;clear:both;height:20px;font-size:1px;overflow:hidden;}
+.blank25{margin:0px auto;clear:both;height:25px;font-size:1px;overflow:hidden;}
+.blank30{margin:0px auto;clear:both;height:30px;font-size:1px;overflow:hidden;}
+
+/*a*/
+a{color:#000;text-decoration:none;}
+a.red{color:red;text-decoration:none;}
+a.red:hover{color:rgb(28, 5, 92);text-decoration:underline;}
+a *{text-decoration:none;}
+a:hover *{text-decoration:none;}
