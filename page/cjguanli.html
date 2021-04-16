@@ -111,11 +111,10 @@
     <div class="soubg">
       <div class="sou">
         <span class="fr">
-        <!--  <span class="fl ss_list" style="height: 35px;" >你好，{{message}}<i v-show="myName.id==uid">
+        <span class="fl ss_list" style="height: 35px;" >你好，{{message}}<i v-show="myName.id==uid">
             <a href="#">{{myName.name}}</a>
             </i>
-            <i v-show="myName.name=='请登录'&&myName.id!=uid">请<a href="loginmer.html">登录</a> <a href="regsmer.html"
-              style="color:#ff4e00;">免费注册</a>
+            <i v-show="myName.name=='请登录'&&myName.id!=uid">请<a href="cjlogin.html">登录</a>
             </i>
             <div class="ss_list_bg" v-show="myName.id==uid">
               <div class="s_city_t"></div>
@@ -126,7 +125,7 @@
                 </ul>
               </div>
             </div>
-          </span>-->
+          </span>
           <span class="ss">
             <div class="ss_list">
               <a href="#">收藏夹</a>
@@ -436,13 +435,13 @@
         //每月单价--正则至少一位数字
         //var reg = /\d+/;
       //获取用户信息
-      //从localStorage对象中获取信息
-     //this.uid=localStorage.getItem("uid");
-       //axios.get('users/getUser').then((ret) => {
+      从localStorage对象中获取信息
+     this.uid=localStorage.getItem("uid");
+       axios.get('users/getUser').then((ret) => {
           //获取后台数据
-         // this.myName = ret.data.data;
+          this.myName = ret.data.data;
 
-       // });
+       });
          //发送异步请求获取数据--加载商家类型
          axios.get('users/getNmaes').then((ret) => {
           //获取后台数据
@@ -480,7 +479,7 @@
           //从localStorage对象中获取信息
           var curpage0a=localStorage.getItem("curpage0a");
           console.log(curpage0a+"------------")
-          if(curpage0a===null){
+          if(curpage0a=="null"){
             //设置页码提交表单
         var formData = new FormData(document.getElementById("sform"));
         //给表单中添加页码属页 
@@ -525,10 +524,10 @@
           this.message= ret.data.message;
               if(ret.data.code==1){
                 this.myName={"name":"请登录","telephone":null,"id":null}
-               // localStorage.setItem('uid',null);
+                localStorage.setItem('uid',null);
                 localStorage.setItem('name','请登录');
                 localStorage.setItem('curpage0a',null);
-               // this.uid=null;
+               this.uid=null;
               }
         });
         },
@@ -669,7 +668,7 @@
         }
         open("details.html",null);  //跳转页面
       },golist(){
-          if(this.uid===null){
+          if(this.uid=="null"){
             localStorage.setItem("name",'');
           }else{
             localStorage.setItem("name",this.myName.name);

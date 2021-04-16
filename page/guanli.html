@@ -469,7 +469,7 @@
           //从localStorage对象中获取信息
           var curpage0a=localStorage.getItem("curpage0a");
           console.log(curpage0a+"------------")
-          if(curpage0a===null){
+          if(curpage0a=="null"){
             //设置页码提交表单
         var formData = new FormData(document.getElementById("sform"));
         //给表单中添加页码属页 
@@ -659,7 +659,7 @@
         }
         open("details.html",null);  //跳转页面
       },golist(){
-          if(this.uid===null){
+          if(this.uid=="null"){
             localStorage.setItem("name",'');
           }else{
             localStorage.setItem("name",this.myName.name);

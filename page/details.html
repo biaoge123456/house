@@ -532,7 +532,7 @@
                //从localStorage对象中获取信息
     this.uid=localStorage.getItem('uid');
     console.log(this.uid+'```````````````')
-    if(this.uid===null){}else{
+    if(this.uid=='null'){}else{
       axios.get('users/getUser').then((ret) => {
           //获取后台数据
           this.myName = ret.data.data.name;
@@ -634,7 +634,7 @@
         });
         },
         golist(){
-          if(this.uid===null){
+          if(this.uid=='null'){
             localStorage.setItem("name",'请登录');
           }else{
             localStorage.setItem("name",this.myName);
@@ -642,7 +642,7 @@
           open("list.html",null);
         },
         gomerlist(){
-          if(this.uid===null){
+          if(this.uid=="null"){
             localStorage.setItem("name",'请登录');
           }else{
             localStorage.setItem("uid",this.uid);

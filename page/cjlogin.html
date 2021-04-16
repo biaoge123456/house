@@ -1,0 +1,323 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0032)http://localhost:8080/HouseRent/ -->
+<HTML xmlns="http://www.w3.org/1999/xhtml">
+  <HEAD><TITLE>惠民小家租房网 - 超级管理员</TITLE>
+<META content="text/html; charset=utf-8" http-equiv=Content-Type>
+  <link rel="stylesheet" href="../css/stylelogin.css">
+  <link rel="stylesheet" href="../css/global.css">
+<META name=GENERATOR content="MSHTML 8.00.7601.17514">
+  <script type="text/javascript" src="../js/vue.min.js"></script>
+  <script type="text/javascript" src="../js/axios.min.js"></script>
+  <script type="text/javascript" src="../js/vue-router.min.js"></script>
+  <script type="text/javascript" src="../js/main.js"></script>
+  <style>
+    .paymentdetail_compontents {
+
+position: fixed;
+
+left: 0;
+
+top: 0;
+
+right: 0;
+
+bottom: 0;
+
+z-index: 33333;
+
+background-color: rgba(0, 0, 0, 0.6);
+    }
+/* display: flex; */
+
+.paymentdetail_div_box {
+
+  width: 300px;
+
+  background-color: white;
+
+  border-radius: 5px;
+
+  position: absolute;
+
+  left: 50%;
+
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+}
+  .paymentdetail_div1 {
+
+    height: 90px;
+
+    text-align: center;
+
+    margin-top: 20px;
+  }
+    .paymentdetail_person_box {
+
+      height: 50px;
+
+      margin-top: 20px;
+
+      color: #685c5c;
+
+    }
+
+    .paymentdetail_div1_warn {
+
+      color: #000;
+
+      font-family: bolder;
+
+    }
+ .paymentdetail_div2 {
+
+    border-top: 1px solid #eee;
+
+    /* display: flex; */
+ }
+    span {
+
+      /* flex: 1; */
+
+      height: 39px;
+
+      line-height: 39px;
+
+      color: #5077aa;
+
+      text-align: center;
+
+      width: 50%;
+
+    }
+
+    .paymentdetail_div2_span {
+
+      border-right: 1px solid #eee;
+
+      color: #685c5c;
+
+      float: left;
+
+      box-sizing: border-box;
+
+    }
+
+    .paymentdetail_div2_span1 {
+
+      float: right;
+
+    }
+
+  </style>
+
+</HEAD>
+
+<BODY>
+  <div id="app">
+
+          <div class="bodywrap" style="background: url(../images/login/logbg.jpg) no-repeat">
+      
+              <div id="header">
+                  <div class="logo cw fz0">
+                      <img class="v-middle" src="../images/login/logo.png" width="100px" height="70px">
+                      <div class="inline-block text v-middle">欢迎登陆超级系统</div>
+                  </div>
+              </div>
+          
+              <div class="content">
+                  <div class="cw clean">
+                      <div class="fr login-wrap">
+                          <div class="switch fz0">
+                              <div class="normal cur pointer">超级管理系统登录</div>
+                          </div>
+      
+                          <div class="normal-wrap">
+                              <div class="auth-wrap">
+                                  <div class="tips fz0">
+                                      <div class="icon-tips"><img class="v-middle" src="../images/login/icon-light-1.png"></div>
+                                      <div class="tips-text">公共场所不建议自动登录，以防账号丢失</div>
+                                  </div>
+          
+                                  <form id="form1" action="" method="post">
+                                      <div class="input-wrap fz0">
+                                          <div class="icon fz0 inline-block"><img src="../images/login/user-1.png"></div>
+                                          <input class="input" type="text" name="name" placeholder="商家用户/已验证手机">
+                                      </div>
+          
+                                      <div class="input-wrap fz0">
+                                          <div class="icon fz0 inline-block"><img src="../images/login/pwd-1.gif"></div>
+                                          <input class="input" type="password" name="password" placeholder="密码">
+                                      </div>
+          
+                                      <div class="other text-justify fz0">
+                                          <label class="inline-block v-middle"><input class="v-middle" type="checkbox" name="auto-login"><span class="v-middle">自动登录</span></label>
+                                          <a href="zhaopw.html" class="forget-pwd v-middle inline-block">忘记密码</a>
+                                      </div>
+                                        
+                                      <div class="submit pointer" @click="login()">&nbsp;登录</div>
+                                  </form>
+                              </div>
+                             
+                              <div class="reg-wrap">
+                                  <div class="reg-wrap-padding clean">
+                                      <div class="fl more-reg fz0 v-middle-child">
+                                          <a href="#">QQ</a>
+                                          <a href="#">微信</a>
+                                      </div>
+          
+                                      <a href="regsmer.html" class="fr reg-now v-middle-child"><img src="../images/login/icon-right.png"><span>立即注册</span></a>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+      
+              <div id="footer">
+                  <div class="footer-wrap cw">
+                      <a href="#" class="fr question"><img class="v-middle" src="../images/login/comment.png">登陆页面，调查问卷</a>
+                      <div class="clear"></div>
+                      <div class="links fz0 text-center">
+                          <a href="#">关于我们</a>
+                          <a href="#">联系我们</a>
+                          <a href="#">人才招聘</a>
+                          <a href="regsmer.html">商家入驻</a>
+                          <a href="#">广告服务</a>
+                          <a href="#">友情链接</a>
+                          <a href="regsmer.html">销售联盟</a>
+                          <a href="#">意见反馈</a>
+                          <a href="#">帮助中心</a>
+                      </div>
+                      <div class="copyright text-center">惠民小家租房网 © 2018 彡小小家 粤ICP证4056801号</div>
+                  </div>
+              </div>
+          </div>
+    
+</DIV>
+<alertbox :isshowAlert="showAlert" :Message="alertMessage" @replaceChecked="replace_checked" @sureChecked="sure_checked"></alertbox>
+
+</div>
+
+<template id="child"> <!--template标签需要给根标签-->
+          <!--删除弹框-->
+
+    <div class="paymentdetail_compontents" v-if="isShowDialogs">
+
+      <div class="paymentdetail_div_box">
+
+        <div class="paymentdetail_div1">
+
+          <span class="paymentdetail_div1_warn">提示</span>
+
+          <div class="paymentdetail_person_box">{{Message}}</div>
+
+        </div>
+
+        <div class="paymentdetail_div2">
+
+          <span class="paymentdetail_div2_span" @click="isShowRefruct">否</span>
+
+          <span class="paymentdetail_div2_span1" @click="isShowAgree">是</span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+   </template>
+  
+</BODY></HTML>
+<script>
+//2.注册全局组件
+//Vue.component('组件名称',组件);
+//Vue.component("one",zj);
+//3.使用组件: 在视图使用组件名称引用组件 <组件名称></组件名称> 引用全局组件:<one></one>
+//4.局部 在视图实例 components:{  "one":zj}， //2.注册局部组件   组件名称:组件 
+var zj={
+       template:'#child', //template属性关联组件内容 注意:组件内容必需放到根标签(div)中
+       data:function(){
+           return {    //定义组件的模型数据
+              props: ["isshowAlert", "Message"],
+              showAlert:"",
+              alertMessage:"你好！",
+              isShowDialogs:true
+           }
+},
+methods:{
+                          isShowRefruct() {
+
+                this.isShowDialogs = false;
+
+                this.$emit("replaceChecked", "replace");
+
+                },
+
+                isShowAgree() {
+
+                this.isShowDialogs = false;
+
+                this.$emit("sureChecked", this.Message);
+
+                },
+           }, watch: {
+
+                isshowAlert() {
+
+                  this.isShowDialogs = this.isshowAlert;
+
+                }
+                }
+ };
+  // 配置请求的基准URL地址
+  axios.defaults.baseURL = 'http://localhost:8089/';
+  //在前端页面中设置支持sesson共享
+   axios.defaults.withCredentials=true;
+
+ var vue=new Vue({
+   el:"#app",
+   data:{
+    
+   },
+    components:{   //2.注册局部组件   组件名称:组件 
+           'alertbox':zj    //默认的组件名alertbox 
+   },
+   mounted:function(){
+    
+   },
+  
+   methods: {
+  
+          replace_checked() {
+
+      console.log(2222222);
+
+      },
+
+      sure_checked() {
+
+      console.log(1111111);
+
+      },
+     login:function(){  //登录事件
+         var formData=new FormData(document.getElementById("form1"));
+         axios.post(`users/login`,formData).then((ret) => {
+            var result=ret.data.code;
+            if(result==1)
+            { //页面跳转传值this.resetSetItem('resetitem','值');
+              //alert("登录成功");
+              localStorage.setItem("name",ret.data.data.name);
+              localStorage.setItem("uid",ret.data.data.id);
+              location.href="cjguanli.html";
+            }else{
+              alert("登录失败!"+ret.data.message);//不是给用户看的 前端开发人员看
+            }
+        });
+    } 
+   }
+ });
+
+
+</script>
