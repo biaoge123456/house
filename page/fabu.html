@@ -364,9 +364,7 @@
                 <!-- ul、li标签用于展示从本地添加的预览视频
                   <canvas id="canvas" class="video" width="50" height="120"></canvas>
                   <span class="loading">正在加载，请稍等</span>
-                 -->
-                <ul>
-                    <li> 
+                 <li> 
                     <p style="width:68px;height:118px;display:inline-block;line-height:29px;position:relative;bottom:10px;">
                          <a @click="upvideo()" >开摄像头</a>
                       <br><a @click="lzvideo()" >&nbsp;录 &nbsp;制</a>
@@ -375,6 +373,10 @@
                     </p>
                      <video id="myVideo" src="" width="120px" height="120px" ></video>
                     </li>
+                
+                -->
+                <ul>
+                   
                   <li v-for="(item,index) in uploadvideo" :key="index" class="addvideo">
                     <video id="video" :src="item" class="video" width="320" height="120" 
                     controls="controls"  preload autoplay controls loop muted></video>               
@@ -500,7 +502,7 @@
 
     },
     methods: {
-
+/**
       //开启摄像头
       upvideo:function(){
       navigator.mediaDevices.getUserMedia({
@@ -522,8 +524,8 @@
             // var blobURL = URL.createObjectURL(blob);
             // console.log(blob);
             // document.write('<a href="' + blobURL + '">' + blobURL + '</a>');
-       //  停止以后调用上传
-       if(aa == ""){uploadToPHPServer(blob);aa = blob}
+       //  停止以后调用上传(调后端服务--进行上传保存)
+       if(this.aa == ""){uploadToPHPServer(blob);this.aa = blob}
         };
 
 
@@ -547,9 +549,9 @@
       },
        cxvideo:function(){
          //重新开始录像
-        if(aa !== ""){aa = "";this.mediaRecorder.start();}
+        if(this.aa !== ""){this.aa = "";this.mediaRecorder.start();}
        } ,
-
+**/
 
       delnum:function(){
         if(this.i>=0){

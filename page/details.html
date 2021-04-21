@@ -17,6 +17,42 @@
 
   <script type="text/javascript" src="../js/MagicZoom.js"></script>
   <script type="text/javascript" src="../js/ShopShow.js"></script>
+
+  <style>
+    #outer{
+        width: 200px;
+        height: 200px;
+        border: 1px solid rgb(124, 123, 123);
+        margin:0 auto;
+        overflow: hidden;
+    }
+    .move{
+        width: 1200px;
+        height: 200px;
+        background-color:rgb(124, 123, 123);
+        
+        animation-name: move;
+        animation-duration: 12s;
+        animation-timing-function: steps(6);
+        animation-iteration-count: infinite;
+    }
+    .move div{
+        width: 200px;
+        height: 200px;
+        float: left;
+        color: #fff;
+        font-size: 30px;
+    }
+
+    @keyframes move{
+        from{
+            margin-left: 0px;
+        }
+        to{
+            margin-left: -1200px;
+        }
+    }
+</style>
 </HEAD>
 
 <BODY>
@@ -203,11 +239,15 @@
       </div>
       <div class="content fl">
 
-        <div id="tsShopContainer">
+        <div id="tsShopContainer" >
+       
           <div id="tsImgS" ><a href="addImg[0]"  class="MagicZoom" id="MagicZoom">
            
               <img :src="addImg[0]" width="430" height="350" />
               </a></div>
+  
+
+
           <div id="tsPicContainer">
             <div id="tsImgSArrL" onclick="tsScrollArrLeft()"></div>
             <div id="tsImgSCon">
@@ -219,8 +259,12 @@
             </div>
             <div id="tsImgSArrR" onclick="tsScrollArrRight()"></div>
           </div>
-          <img class="MagicZoomLoading" width="16" height="16" src="../images/loading.gif" alt="Loading..." />
+         <img class="MagicZoomLoading" src="../images/loading.gif" alt="Loading..." />
+ 
+       
         </div>
+        
+        
      
       
         <div class="pro_des fl">
@@ -270,6 +314,18 @@
         <div class="s_brand fl">
           <div class="s_brand_img"><img src="../images/login/logbg.jpg" width="188" height="132" /></div>
           <div class="s_brand_c"><a href="#">进入品牌专区</a></div>
+          <div id="outer">
+            <div class="move">
+              <div v-for="h in gghouses">
+               
+                  <a @click="tiaoDhtml(h.id)" target="_blank">
+                      <img :src="'http://localhost:80/'+h.path.split(',').slice(-1)" width=198px height=200px alt="">
+                    </a>
+  
+              </div>
+                
+            </div>
+        </div>
         </div>
 
 
@@ -503,9 +559,9 @@
       price: null,
       floorage: null,
       path:'',
-      uploadImg: [],
-      addImg:[],
-      upImg:[],
+      uploadImg: [],//总图片集
+      addImg:[],//图片集
+      upImg:[],//上传新图片集
       arr:[],
       imgnames:false,
       i:-1,
@@ -521,6 +577,8 @@
       datetwo:null,
       datethree:null,
       datefour:null,
+      gghouses:null,//广告
+      ggpname:null,
     },
     mounted: function () {
       this.dateone=fmtdate(new Date(),'yyyy-MM-dd');  
@@ -615,7 +673,32 @@
         this.types = ret.data.data;
       });
    
+     //调用后台api获取所有出租房---------广告
+     var ggformData = new FormData();
+            //给表单中添加页码属页 
+       // ggformData.append("page", 1);
+        ggformData.append('uid',1007) 
+           axios.get('house/ggHouses',ggformData).then((ret) => {
+          //获取后台数据
+          this.gghouses = ret.data.data.list;
+          //this.curpage = ret.data.data.curPage;  //获取当前页
+         // this.pages = ret.data.data.totalPage;  //获取总页
+          //this.qid=this.houses.pid;
+          console.log(ret.data.data.list);
+          ret.data.data.list.forEach((item, index, arr) => {
+            //this.qid = item.pid;
+            console.log(item.pid);
+            //加载县区域名称
+            axios.get('pubQU/pubPub', { params: { 'id': item.pid } }).then((ret) => {
+              //获取后台数据
+              item.ggpname = ret.data.data.name;
+            })
 
+          })
+
+        });
+
+        
     
     },
     methods: {
@@ -650,6 +733,18 @@
           }
           open("merlist.html",null);
         },
+        tiaoDhtml:function(Hid){   //去详情   传递出租房编号
+        //使用localStorage对象存储数据 setItem("键",值);
+        localStorage.setItem("Hid",Hid);
+        if(this.myName=='请登录'){
+          localStorage.setItem('uid',null);
+        }else{
+          localStorage.setItem('uid',this.uid);
+        }
+        
+        open("details.html",null);  //跳转页面
+
+      },
         //点赞图标变亮--goods+1
         ShowDivA:function(){
           $('.d_careA').hide();
@@ -696,6 +791,11 @@
       });
     },
 
+    },
+    updated(){
+      //默认初始大图片
+        $('#tsImgSCon ul')[0].lastElementChild.click();
+
     }
   })
 
@@ -720,4 +820,6 @@
             }
             return fmt
           }
+
+          
 </script>

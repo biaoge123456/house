@@ -1,6 +1,6 @@
 /* Copyright 2008 MagicToolBox.com. To use this code on your own site, visit http://magictoolbox.com */
 
-/* CSS class for zoomed area */
+/* CSS class for zoomed area缩放区域的Css类*/ 
 .MagicZoomBigImageCont {
 	border:1px solid #91b817;
 	background:#FFF;
@@ -15,8 +15,8 @@
 	padding: 0px !important;
 }
 
-/* Header look and feel CSS class */
-/* header is shown if "title" attribute is present in the <A> tag */
+/* Header look and feel CSS class/* Header外观和感觉css类*/ 
+/* header is shown if "title" attribute is present in the <A> tag/*如果<A>标签中有"title"属性，则会显示header */
 .MagicZoomHeader {
 	font:			10px Tahoma, Verdana, Arial, sans-serif;
 	color:			#fff;
@@ -25,27 +25,25 @@
 }
 
 
-/* CSS class for small looking glass square under mouse */
+/* CSS class for small looking glass square under mouse/*在鼠标下面的小镜子类width: 160px;*/ 
 .MagicZoomPup {
+	width: 160px;
+	height: 120px;
 	border: 		0px solid #aaa;
 	background: 	#ffffff;
 }
 
-/* CSS style for loading animation box*/
+/* CSS style for loading animation box/*加载动画框的css样式*/
 .MagicZoomLoading {
-	
-    -webkit-margin: transform origin 1px;
-	-moz-margin: transform origin 1px;
-	-ms-margin: transform origin 1px;
-	-o-margin: transform origin 1px;
-	margin: transform origin 1px;
+	width: 400px;
+	height: 303px;
 	text-align:		center;
 	background: 	#ffffff;
 	color:			#444;
 	border: 		1px solid #ccc;
-	opacity:		0.8;
+	opacity:		0.3;
 	padding:		3px 3px 3px 3px !important;
-	display: 		none; /* do not edit this line please*/ 
+	display: 		none; /* do not edit this line please*/
 
 
 } 
@@ -53,9 +51,14 @@
 .MagicZoomLoading img {
 	
 	padding-top:	3px !important;
+	width: 400px;
+	height: 300px;
 }
 
 
 
 
- /*CSS style for gif image in the loading animation box */
+ /*CSS style for gif image in the loading animation boxCs5风格的gif图像加载动画框 */
+
+
+ 

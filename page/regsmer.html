@@ -359,7 +359,16 @@ axios.defaults.withCredentials=true;
         }
     ,
     
-     regUser:function(){  //注册事件
+     regUser:function(){  //注册事件merchantText
+
+      if(!reg_username.test(this.yname)||!reg_pwd.test(this.password)||!reg_pwd.test(this.repassword)||!reg_phone.test(this.tel)||!reg_phone.test(this.merchantText)){
+            alert("请完成注册信息的正确填写！");
+            return;
+          }
+          if(!this.rangeStatus){
+            alert("请完成验证之后在注册！");
+            return;
+          }
            //获取表单数据，使有axios的post方法发送异步请求实现添加    注意:post方法默认不能传json  
           //使用FormData对象封装表单数据
           //1.基于表单创建FormData对象  var formdata=new FormData(表单);

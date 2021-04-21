@@ -1,3 +1,4 @@
+
 var MagicZoom_ua = 'msie';
 var W = navigator.userAgent.toLowerCase();
 if (W.indexOf("opera") != -1) {
@@ -139,7 +140,7 @@ function MagicZoom(smallImageContId, smallImageId, bigImageContId, bigImageId, s
         this.loadingCont.className = 'MagicZoomLoading';
         this.loadingCont.style.display = 'block';
         this.loadingCont.style.textAlign = 'center';
-        this.loadingCont.innerHTML = this.settings["loadingText"] + '<br/><img border="0" alt="' + this.settings["loadingText"] + '" src="' + this.settings["loadingImg"] + '"/>';
+        this.loadingCont.innerHTML = this.settings["loadingText"] + '<br/><img border="0" width="360px" height="300px" alt="' + this.settings["loadingText"] + '" src="' + this.settings["loadingImg"] + '"/>';
         this.smallImageCont.appendChild(this.loadingCont)
     }
     this.baseuri = '';
@@ -293,8 +294,9 @@ MagicZoom.prototype.recalculatePopupDimensions = function() {
     if (this.popupSizeY > this.smallImageSizeY) {
         this.popupSizeY = this.smallImageSizeY
     }
+    //==========================================================================
     this.pup.style.width = this.popupSizeX + 'px';
-    this.pup.style.height = this.popupSizeY + 'px'
+    this.pup.style.height = this.popupSizeY+ 'px'
 };
 MagicZoom.prototype.initPopup = function() {
     this.pup = document.createElement("DIV");
@@ -506,13 +508,13 @@ function MagicZoom_findZooms() {
             }
             re = new RegExp(/zoom\-width(\s+)?:(\s+)?(\w+)/i);
             matches = re.exec(aels[i].rel);
-            bigCont.style.width = '300px';
+            bigCont.style.width = '250px';
             if (matches) {
                 bigCont.style.width = matches[3]
             }
             re = new RegExp(/zoom\-height(\s+)?:(\s+)?(\w+)/i);
             matches = re.exec(aels[i].rel);
-            bigCont.style.height = '257px';
+            bigCont.style.height = '200px';
             if (matches) {
                 bigCont.style.height = matches[3]
             }
@@ -591,6 +593,8 @@ function MagicZoom_findZooms() {
     }
 };
 if (MagicZoom_ua == 'msie') try {
-    document.execCommand("BackgroundImageCache", false, true)
+  document.execCommand("BackgroundImageCache", false, true)
 } catch(e) {};
 MagicZoom_addEventListener(window, "load", MagicZoom_findZooms);
+
+

@@ -3,6 +3,7 @@
 //单击图片列表
 function showPic(num)
 {
+
 	//将所有的li样式赋值为空
 	var objUl=FulS();
 	for(var i=0;i<objUl.length;i++)
@@ -196,8 +197,8 @@ function FulSs()
 }
 	
 //图片集外面的DIV宽
-//document.getElementById("tsImgSCon").style.width=FliS(0).offsetWidth*3+"px";
-document.getElementById("tsImgSCon").style.width;	
+document.getElementById("tsImgSCon").style.width=FliS(0).offsetWidth*3+"px";
+//document.getElementById("tsImgSCon").style.width;	
 //Ul宽
 FulSs().style.width=FliS(0).offsetWidth*FulS().length+"px";
 

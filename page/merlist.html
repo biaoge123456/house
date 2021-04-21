@@ -220,12 +220,15 @@
                 <a href="" class="fl" ><img src="../images/scan.png" width="30px" height="42px" />-->
 
               <input class="fl search-input" v-bind:class="{red:isRed,cornflowerblue:isCornflowerblue}" type=text
-                name=title @focus="ff();" @blur="fb();" v-model="inputvalue" placeholder="请输入房源信息" />
+                name=title @focus="ff();" @blur="fb(inputvalue);" v-model="inputvalue" placeholder="请输入房源信息" />
               <button class="fl search-btn" @click="doSearch();" type=button name=search>搜索房屋</button>
-                    <!--s
-              <p class="fl search-btm"><a href="">xx公寓</a><a href="">xx酒店</a><a href="">xx住宿</a><a href="">xx旅社</a><a
-                  href="">xxxx</a></p>
-                  -->
+              <br>  <br>
+              <p class="fl search-btm">
+                <a v-for='at in lgtext'  @mouseover="lgmouseover(at)"  @click="lgdoSearch();">{{at}}<br></a>
+              </p>  
+              <p class="fl search-btm">
+                <a  @mouseover="lgmouseover('家')" @click="lgdoSearch();">家</a>
+              </p>
             </div>
             <!--scan&&搜索结束
                 <INPUT class=text type=text name=title>
@@ -247,11 +250,10 @@
         <ul class="head-nav">
           <li><a href="#" class="current">房源信息∨</a></li>
           <li><a @click='golist()'>跳转首页</a></li>
-          <li><a href="#">民宿短租</a></li>
-          <li><a href="#">房东直租</a></li>
-          <li><a href="#">品牌公寓</a></li>
-          <li><a href="#">青年旅社</a></li>
-          <li style="width: 186px;"><a href="fabu.html">发布新的出租房</a></li>
+          <li><a href="#" @mouseover="lgmouseover('公寓')"  @click="lgdoSearch();">品牌公寓</a></li>
+          <li><a href="#" @mouseover="lgmouseover('民宿')"  @click="lgdoSearch();">民宿短租</a></li>
+          <li><a href="#" @mouseover="lgmouseover('房东直租')"  @click="lgdoSearch();">房东直租</a></li>
+          <li><a href="#" @mouseover="lgmouseover('旅社')"  @click="lgdoSearch();">青年旅社</a></li> <li style="width: 186px;"><a href="fabu.html">发布新的出租房</a></li>
         </ul>
       </div>
       <TABLE class="house-list fl">
@@ -414,7 +416,8 @@
         showPrev: true,//显示前一页
         myName:{"name":"请登录","telephone":null,"id":null},
         uid:null,
-        message:null
+        message:null,
+        lgtext:['酒店','公寓','住宿','出租房','民宿']
       },
       created:function(){
         window.addEventListener('setItem', ()=> {
@@ -642,13 +645,25 @@
         //alert(this.value+"999"+this.inputvalue);
         this.isCornflowerblue = true;
       },
-      fb: function () {
+      fb: function (str) {
         if (this.inputvalue != '' || this.inputvalue != '请输入关键字') {
           //this.inputvalue='请输入关键字';
           this.isCornflowerblue = false;
         }
         this.isRed = true;
-      }
+        this.lgtext.pop();
+        this.lgtext.unshift(str);
+      },
+        //lgo搜索出租房
+        lgmouseover(str){
+        this.inputvalue=str;
+       },
+
+       lgdoSearch: function () { 
+         console.log(this.inputvalue+'........')
+         //doSearch();  不能直接调方法，通过事件触发 
+         $('.search-btn')[0].click();
+      },
 
     },
 

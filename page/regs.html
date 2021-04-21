@@ -216,18 +216,18 @@ axios.defaults.withCredentials=true;
     pwhint:false,
     repwhint:false,
     //status: false,
-        //成功图标
-        successIcon: 'el-icon-success',
-        //成功文字
-        successText:'验证成功',
-        //开始的图标
-        startIcon: 'el-icon-d-arrow-right',
-        //开始的文字
-        startText:'请拖住滑块，拖动到最右边',
-        //或者用值来进行监听
-        status:"",
-            disX : 0,
-            rangeStatus: false,
+    //成功图标
+    successIcon: 'el-icon-success',
+    //成功文字
+    successText:'验证成功',
+    //开始的图标
+    startIcon: 'el-icon-d-arrow-right',
+    //开始的文字
+    startText:'请拖住滑块，拖动到最右边',
+    //或者用值来进行监听
+    status:"",
+    disX : 0,
+    rangeStatus: false,
    },
 	components: {
     // 将组建加入组建库
@@ -341,12 +341,23 @@ axios.defaults.withCredentials=true;
     ,
     
      regUser:function(){  //注册事件
+
+          if(!reg_username.test(this.yname)||!reg_pwd.test(this.password)||!reg_pwd.test(this.repassword)||!reg_phone.test(this.tel)){
+            alert("请完成注册信息的正确填写！");
+            return;
+          }
+          if(!this.rangeStatus){
+            alert("请完成验证之后在注册！");
+            return;
+          }
+
            //获取表单数据，使有axios的post方法发送异步请求实现添加    注意:post方法默认不能传json  
           //使用FormData对象封装表单数据
           //1.基于表单创建FormData对象  var formdata=new FormData(表单);
           //理解为formdata就是一个键值对集合
           // 键（表单对象名称）   值(表单对象值)
           //表单对象的名称一定要和请求参数的名称对应
+
          var formData=new FormData(document.getElementById("form1"));
          axios.post(`users/regUser`,formData).then((ret) => {
             var result=ret.data.code;

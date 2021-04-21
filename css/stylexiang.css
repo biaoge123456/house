@@ -275,7 +275,7 @@ table.c_tab tr th{
 }
 
 .s_brand{
-	width:188px; height:188px; overflow:hidden; float:right; border:1px solid #eaeaea;
+	width:200px; height:388px; overflow:hidden; float:right; border:1px solid #eaeaea;
 }
 .s_brand_img{
 	width:188px; height:132px; overflow:hidden; border-bottom:1px solid #eaeaea;

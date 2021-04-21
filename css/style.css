@@ -186,7 +186,7 @@ input::-webkit-input-placeholde{
 	background:#ff3c3c;color:#fff;height:42px;border:0 none;cursor:pointer;
 }
 .search-btm{text-align: left; padding-left: 10px;margin-top: 5px; height: 40px;}
-.search-btm a{color:#999;margin-right:20px; }
+.search-btm a{color:#999;margin-right:20px;font-size: 10px; }
 .search-btm a:hover{color:#ff2832;}
 
 /*=======main头=========*/
@@ -216,7 +216,7 @@ input::-webkit-input-placeholde{
 	BORDER-BOTTOM: #ccc 1px solid; BORDER-LEFT: #ccc 1px solid; PADDING-BOTTOM: 15px; PADDING-LEFT: 3px; PADDING-RIGHT: 3px;  BORDER-TOP: #ccc 1px solid; BORDER-RIGHT: #ccc 1px solid; PADDING-TOP: 3px
 }
 .house-list TD DL DT {
-	FONT-SIZE: 14px; FONT-WEIGHT: bold;font-size: 24px; padding-left:10px ;
+	FONT-SIZE: 14px; FONT-WEIGHT: bold;font-size: 18px; margin-top:-10px ;padding-bottom: 10px;
 }
 .house-list TD.house-type {
 	TEXT-ALIGN: center; WIDTH: 100px
@@ -233,7 +233,7 @@ input::-webkit-input-placeholde{
 width: 390px;margin: 0 auto;;overflow: hidden; font-size: 12px;
 }
 .ghouse-list {
-	width: 390px; 
+	width: 340px; padding-left: 50px;
 }
 .ghouse-list odd{
 	BACKGROUND: #faf9f6; 
@@ -242,19 +242,16 @@ width: 390px;margin: 0 auto;;overflow: hidden; font-size: 12px;
  PADDING-BOTTOM: 1px; PADDING-TOP: 1px
 }
 .ghouse-list TD.ghouse-thumb {
-	TEXT-ALIGN: center; height: 120px;padding-left: 20px;
+	TEXT-ALIGN: center;width: 230px; height: 120px;
 }
 .ghouse-list TD.ghouse-thumb SPAN {
 	PADDING-LEFT: 1px; PADDING-RIGHT: 1px;   PADDING-TOP: 1px
-}
-.ghouse-list TD DL DT {
-	FONT-SIZE: 14px; FONT-WEIGHT: bold; 
 }
 .ghouse-list TD.ghouse-type {
 	TEXT-ALIGN: center; width: 12px;
 }
 .ghouse-price {
-	TEXT-ALIGN: center;  COLOR: #ff3300;font-size: 12px;width: 20px;
+	TEXT-ALIGN: center;  COLOR: #ff3300;font-size: 14px;
 }
 .ghouse-list TD.ghouse-price SPAN {
 	PADDING-BOTTOM: 0px; PADDING-LEFT: 1px; PADDING-RIGHT: 1px; FONT-FAMILY: "Arial Black", Gadget, sans-serif; FONT-SIZE: 8px; VERTICAL-ALIGN: middle; PADDING-TOP: 0px
