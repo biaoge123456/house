@@ -31,14 +31,14 @@ DD {
 	MARGIN: 0px auto; WIDTH:1280px
 }
 #header {
-height: 160px;WIDTH: 1280px;overflow: hidden;
+height: 160px;WIDTH: 280px;overflow: hidden;
 }
 #header p{
 	width:30px;height: 160px;margin-left: 5px ; margin-top: 30px; color: #ff3c3c;
 	font-size: 28px; font-family:"宋体";FONT-WEIGHT: bold;
 }
 #logo{
-width: 240px;  height: 160px;  margin-left: 20px; 
+width: 240px;  height: 140px;  margin-left: 20px; 
 }
 .dialog {
 	MARGIN: 50px auto; WIDTH: 680px

@@ -100,10 +100,16 @@ table.c_tab tr th{
 	width:280px; height:35px; float:left;
 }
 .ss_list{
-	 background:url(../images/t_arrow.gif) no-repeat right center;  display:inline; margin-left:10px; padding-right:15px; cursor:pointer; position:relative;
+	 background:url(../images/t_arrow.gif) no-repeat right center;  display:inline; margin-left:5px; padding-right:15px; cursor:pointer; position:relative;
 }
 .ss_list:hover .ss_list_bg{
 	display:block; 
+}
+.ss_list:hover .ss_list_bgu{
+	display:block; 
+}
+.ss_list_bgu{
+	width:116px; overflow:hidden; position:absolute; left:50%; top:25px; margin-left:-58px; z-index:900; display:none;
 }
 .ss_list_bg{
 	width:116px; overflow:hidden; position:absolute; left:50%; top:15px; margin-left:-58px; z-index:900; display:none;

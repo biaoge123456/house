@@ -4,7 +4,7 @@
 <HTML xmlns="http://www.w3.org/1999/xhtml">
 
 <HEAD>
-  <TITLE>惠民小家租房网 -商家管理页</TITLE>
+  <TITLE>惠民小家租房网 -超级管理页</TITLE>
   <META content="text/html; charset=utf-8" http-equiv=Content-Type>
   <LINK rel=stylesheet type=text/css href="../css/styleguanli.css">
   <META name=GENERATOR content="MSHTML 8.00.7601.17514">
@@ -111,30 +111,30 @@
     <div class="soubg">
       <div class="sou">
         <span class="fr">
-        <span class="fl ss_list" style="height: 35px;" >你好，{{message}}<i v-show="myName.id==uid">
-            <a href="#">{{myName.name}}</a>
+        <span class="fl ss_list" style="height: 35px;" >{{message}}<i v-show="uid!='null'">
+            <a href="#"  style="color:limegreen">{{myName.name}}</a>
             </i>
-            <i v-show="myName.name=='请登录'&&myName.id!=uid">请<a href="cjlogin.html">登录</a>
+            <i v-show="uid=='null'">你好，请<a href="cjlogin.html">登录</a>
             </i>
-            <div class="ss_list_bg" v-show="myName.id==uid">
+            <div class="ss_list_bgu" v-show="uid!='null'">
               <div class="s_city_t"></div>
               <div class="ss_list_c">
                 <ul>
-                  <li><a href="loginmer.html">切换账号</a></li>
-                  <li><a  @click="exitLogin()">退出登录</a></li>
+                  <li><a href="cjlogin.html">切换账号</a></li>
+                  <li><a  @click="cjexitLogin()">退出登录</a></li>
                 </ul>
               </div>
             </div>
           </span>
           <span class="ss">
             <div class="ss_list">
-              <a href="#">收藏夹</a>
+              <a href="#">我的关注</a>
               <div class="ss_list_bg">
                 <div class="s_city_t"></div>
                 <div class="ss_list_c">
                   <ul>
-                    <li><a href="#">我的收藏夹1</a></li>
-                    <li><a href="#">我的收藏夹2</a></li>
+                    <li v-for='gz in guanzhumers'>
+                      <a href="#" @click='gomerlist(gz.id,gz.name)'>{{gz.name}}</a></li>
                   </ul>
                 </div>
               </div>
@@ -271,7 +271,9 @@
             </TD>
             <TD>
               <DL>
-                <DT><A @click="tiaoDhtml(h.id)" target="_blank">{{h.title}}</A></DT>
+                <DT><A @click="tiaoDhtml(h.id)" target="_blank">{{h.title}}</A>
+                  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关注数：{{h.goods}}</span>
+                </DT>
                 <DD>
                   <br>
                   <hidden v-set="this.qid=h.pid" v-model=qid></hidden>
@@ -285,11 +287,20 @@
             </TD>
             <TD class=house-type>{{h.tname}}</TD>
             <TD class=house-price><SPAN>{{h.price}}</SPAN>元/月</TD>
+            <TD class=house-price><SPAN v-if='h.ispass==0'>审核中...</SPAN><font color='limegreen' v-if='h.ispass==1'>已审核</font></TD>
+            
+            <TD class=house-type><LABEL class=ui-green>
+              <INPUT @click="shIspass(h.id);" value="审    核" type=button name=search>
+              </LABEL></TD>
             <TD class=house-type><LABEL class=ui-green>
               <INPUT @click="goUpdate(h.id);" value="修    改" type=button name=search>
               </LABEL></TD>
               <TD class=house-price><LABEL class=ui-green>
-                <INPUT @click="deleteHouse(h.id)" value="删    除" type=button name=search>
+                <INPUT v-if='h.isdel==1' @click="hfdeleteHouse(h.id)" value="恢    复" type=button name=search> 
+                <INPUT v-if='h.isdel==0' @click="deleteHouse(h.id)" value="删    除" type=button name=search>
+                 <br> <INPUT v-if='h.isdel==1&&!pdel' @click="deleteHousepfile(h.path)" value="删图片" type=button name=search> 
+                  <br> <INPUT v-if='h.isdel==1&&!vdel' @click="deleteHousevfile(h.video)" value="删视频" type=button name=search> 
+               
                 </LABEL></TD>
           </TR>
           <TR class=odd v-show="houses==null">
@@ -427,6 +438,12 @@
         lgtext:['酒店','公寓','住宿','出租房','民宿'],
         message:null,
         names:null,
+        uid:null,
+        guanzhumers:[],
+        guanzhus:null,
+        gzmerids:[],
+        pdel:false,
+        vdel:false,
       },
       created:function(){
         window.addEventListener('setItem', ()=> {
@@ -438,9 +455,9 @@
         //每月单价--正则至少一位数字
         //var reg = /\d+/;
       //获取用户信息
-      从localStorage对象中获取信息
+      //从localStorage对象中获取信息
      this.uid=localStorage.getItem("uid");
-       axios.get('users/getUser').then((ret) => {
+       axios.get('users/getcjUser').then((ret) => {
           //获取后台数据
           this.myName = ret.data.data;
 
@@ -455,6 +472,25 @@
         axios.get('type/getTypeData').then((ret) => {
           //获取后台数据
           this.types = ret.data.data;
+
+        });
+
+        //加载收藏内容--关注
+        axios.get('/getGz',{params:{'uid':this.uid}}).then((ret) => {
+          //获取后台数据关注的[]
+          this.guanzhus=ret.data;
+          //获取商家id【】
+          ret.data.forEach((item,index,arr)=>{
+            console.log(item.merid+'......'+index+'='+this.guanzhus[0].merid)
+            this.gzmerids.push(item.merid);
+          })//去重
+            Array.from(new Set(this.gzmerids)).forEach((item,index,arr)=>{
+              //查名
+              axios.get('/users/getUserMESSAGE',{params:{'uid':item}}).then((ret) => {
+           this.guanzhumers.push(ret.data.data);
+            
+              })
+          })
 
         });
         //加载省名
@@ -489,7 +525,7 @@
         formData.append("page", this.page);
      
                 //调用后台api获取所有出租房
-                axios.get('house/searchHouse',formData).then((ret) => {
+                axios.get('house/glsearchHouseBysid',formData).then((ret) => {
                   //获取后台数据
                   this.houses = ret.data.data.list;
                   this.curpage = ret.data.data.curPage;  //获取当前页
@@ -521,8 +557,8 @@
 
       methods: {
         //退出登录
-        exitLogin:function(){
-          axios.get('users/exitLogin').then((ret) => {
+        cjexitLogin:function(){
+          axios.get('users/cjexitLogin').then((ret) => {
           //获取后台数据
           this.message= ret.data.message;
               if(ret.data.code==1){
@@ -530,7 +566,9 @@
                 localStorage.setItem('uid',null);
                 localStorage.setItem('name','请登录');
                 localStorage.setItem('curpage0a',null);
-               this.uid=null;
+               this.uid='null';
+               localStorage.setItem('userId',null);
+               location.href="cjlogin.html"  //刷新页面
               }
         });
         },
@@ -604,7 +642,7 @@
           //表单对象的名称与后台参数的名称相同
           var formData = new FormData(document.getElementById("sform")); 
 
-          axios.post('house/searchHouseBysid', formData).then((ret) => {
+          axios.post('house/glsearchHouseBysid', formData).then((ret) => {
             //获取后台数据
             this.houses = ret.data.data.list;
             this.curpage = ret.data.data.curPage;  //获取当前页
@@ -626,7 +664,7 @@
         var formData = new FormData(document.getElementById("sform"));
         //给表单中添加页码属页 
         formData.append("page", num);
-        axios.post('house/searchHouseBysid', formData).then((ret) => {
+        axios.post('house/glsearchHouseBysid', formData).then((ret) => {
           //获取后台数据
           this.houses = ret.data.data.list;
           this.curpage = ret.data.data.curPage;  //获取当前页
@@ -654,12 +692,41 @@
                   alert("系统正在维护升级.....");
                 }
           })
+      }, hfdeleteHouse:function(hid){   //恢复已删除的出租房
+          //调用后台api恢复出租房
+          axios.get('house/hfdelHouse', {
+            params: {
+              id:hid  
+            }
+          }).then((ret) => {
+                if(ret.data.code==1){
+                   //表示恢复成功
+                  location.reload();  //刷新重新加载
+                }else{
+                  alert("系统正在维护升级.....");
+                }
+          })
       },
       goUpdate:function(Hid){   //去修改   传递出租房编号
         //使用localStorage对象存储数据 setItem("键",值);
         localStorage.setItem("Hid",Hid);
         localStorage.setItem( 'curpage',this.curpage);
         location.href="updata.html";  //跳转页面
+      },
+      shIspass:function(Hid){//审核
+//调用后台api审核出租房
+axios.get('house/shIspass', {
+            params: {
+              id:Hid  
+            }
+          }).then((ret) => {
+                if(ret.data.code==1){
+                   //表示审核成功
+                  location.reload();  //刷新重新加载
+                }else{
+                  alert("系统正在维护升级.....");
+                }
+          })
       },
       tiaoDhtml:function(Hid){   //去详情   传递出租房编号
         //使用localStorage对象存储数据 setItem("键",值);
@@ -678,7 +745,20 @@
           }
           location.href="list.html";
         },
-
+      gomerlist(userId,mername){
+       
+          if(this.uid=="null"){
+            localStorage.setItem("uid",null);
+            localStorage.setItem("name",'请登录');
+          }else{
+            localStorage.setItem("uid",this.uid);
+            localStorage.setItem("name",this.myName);
+            localStorage.setItem('userId',userId);
+            localStorage.setItem('mername',mername);
+           
+          }
+          open("merlist.html",null);
+        },
       //搜索字的颜色document.getElementById("inputVal").focus();
       ff: function () {
         this.isRed = false;
@@ -707,6 +787,29 @@
          //doSearch();  不能直接调方法，通过事件触发 
          $('.search-btn')[0].click();
       },
+      deleteHousevfile(vfile){
+        axios.get('delvfile', { params: { 'vfiles':vfile}}).then((ret) => {
+                if(ret.data==1){
+                   //表示视频删除成功
+                   this.vdel=true;
+                   alert("视频删除成功");
+                }else{
+                  alert("系统正在维护升级.....");
+                }
+          })
+      },
+      deleteHousepfile(pfile){
+        console.log(pfile+"ffff")
+        axios.get('delpfile', { params: { 'pfiles':pfile }}).then((ret) => {
+                if(ret.data==1){
+                   //表示图片删除成功
+                   this.pdel=true;
+                   alert("图片删除成功");
+                }else{
+                  alert("系统正在维护升级.....");
+                }
+          })
+      }
 
     },
 

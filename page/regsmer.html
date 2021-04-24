@@ -81,7 +81,43 @@
             justify-content: center;
            align-items: center;
 }
+.uploadFile input {
+      /* 隐藏uploadFile默认的"打开文件"样式 padding: 10px 0;*/
+      display: none;
+    }
 
+    .uploadFile {
+      display: flex;
+      height: 120px;
+      line-height: 60px;
+      
+      border-bottom: 1px solid rgb(235, 235, 235);
+      overflow: hidden;
+    }
+
+    .uploadFile ul {
+      display: flex;
+    }
+
+    .uploadFile ul li {
+      margin-right: 10px; 
+    }
+
+    .uploadFile .addPic img {
+      height: 120px;
+      width: 120px;
+    }
+
+    .uploadFile p {
+      height: 120px;
+      width: 120px;
+      margin-top: 0px;
+      font-size: 15px;
+      border: 1px dashed rgba(158, 157, 157, 0.116);
+      color: rgb(124, 109, 109);
+      background-color: rgba(248, 234, 234, 0.041);
+    }
+    #footer  a:hover{color: rgb(0, 0, 0);}
 
 </style>
 
@@ -138,6 +174,23 @@
         <span v-if="merchantText.length&lt;20" style="color: red;">*</span>
       </TD>
     </TR>
+    <tr style="height: 120px;">
+      <TD class=field>Logo：</TD>
+      <TD>
+    <div class="uploadFile">
+      <!-- ul、li标签用于展示从本地添加的预览图片 -->
+      <ul>
+        <li v-for="(item,index) in uploadImg" :key="index" class="addPic">
+          <img :src="item"/>
+        </li>
+      </ul>
+      <div class="pfilediv" v-show="imgnames">
+    <input type="file" id="pfile" accept="image/*" @change="getPicture($event)" name=pfiles v-show="imgnames" >
+  </div>
+      <p>jpg/png/gif图片<br><a @click="callFile()" >&nbsp;&nbsp;添加</a> &nbsp;|  &nbsp;<a @click="delnum()">删掉 </a><br></p>
+    </div>
+  </TD>
+    </tr>
   <TR>
     <TD class=field>验  &nbsp;  证：</TD>
     <TD>
@@ -196,13 +249,13 @@
 			  - 手机号:  以1开头，必须是11位数字。
 		 * 
 		 * */
-     var reg_username = /^[a-zA-Z_$\u4e00-\u9fa5]{4,9}$/;
+     var reg_username = /^[a-zA-Z_$\u4e00-\u9fa5][a-zA-Z_$\u4e00-\u9fa5]{3,12}$/;
 		
     var reg_pwd = /^\w{6,16}$/;
     
     var reg_phone = /^1[35789]\d{9}$/;
     
-    var reg_text=/^[a-z0-9A-Z_$\u4e00-\u9fa5，,\.。！@；;]{20,100}$/;
+    var reg_text=/[a-z0-9A-Z_$\u4e00-\u9fa5，,\.。！@；;]{20,100}$/;
   // 配置请求的基准URL地址
   axios.defaults.baseURL = 'http://localhost:8089/';
 
@@ -237,6 +290,8 @@ axios.defaults.withCredentials=true;
         status:"",
             disX : 0,
             rangeStatus: false,
+            uploadImg: [],
+      imgnames:false,
    },
 	components: {
     // 将组建加入组建库
@@ -262,7 +317,7 @@ axios.defaults.withCredentials=true;
        if(!reg_username.test(name)){
         this.resultname=0;
           this.msgname='*';
-        alert("用户名必须至少4位到10位，以非数字特殊符号开头。");
+        alert("用户名必须至少4位到13位，以非数字特殊符号开头。");
        }else{
       axios.get('users/getUserName',{params: {'name':name}}).then((ret) => {
           //获取后台数据
@@ -315,6 +370,55 @@ axios.defaults.withCredentials=true;
           }
         
      },
+     
+     delnum:function(){
+        
+        //lastElementChild.innerHTML方法可以用来获取元素最后一个子元素标签
+        $('.addPic')[0].lastElementChild.innerHTML='';
+        $('.pfilediv')[0].lastElementChild.innerHTML='';
+        //delete this.uploadImg[id];删除数组指定元素
+        this.uploadImg.pop();//删除数组最后一个元素
+    
+     
+      },
+      getPicture(e) {
+        //预览图片
+        let src = window.URL.createObjectURL(e.target.files[0]);
+        this.uploadImg.push(src);
+        if (this.uploadImg.length >= 2) {
+          this.uploadImg.pop();
+          return alert("最多只能上传1张图片");
+        }
+        var imgSize = e.target.files[0].size;  //b
+        if (imgSize > 1024 * 1024 * 5) {//5M
+          this.uploadImg.pop();
+          return alert("上传图片不能超过5M");
+        }
+        if (e.target.files[0].type != 'image/png' && e.target.files[0].type != 'image/jpeg' && e.target.files[0].type != 'image/gif') {
+          this.uploadImg.pop();
+          return alert("图片上传格式不正确");
+        }
+        //将图片文件转化成base64格式图片
+        var reader = new FileReader();
+        reader.onload = (e) => {
+          //e.target.result  就是从本地读取的图片的base64格式,将它上传图片数据给服务器即可
+          //使用axios的post方法上传即可
+          this.imgnames=e.target.result;
+        }
+        reader.readAsDataURL(e.target.files[0])
+              
+      },
+      callFile() {
+        
+        $("#pfile")[0].click();
+        console.log($("#pfile")[0].id+"==");
+       
+        
+        this.uploadImg.forEach((item,index,arr) => {
+          console.log(item)
+        });
+      },
+
       //滑块移动
       rangeMove(e){
             let ele = e.target;
@@ -361,7 +465,7 @@ axios.defaults.withCredentials=true;
     
      regUser:function(){  //注册事件merchantText
 
-      if(!reg_username.test(this.yname)||!reg_pwd.test(this.password)||!reg_pwd.test(this.repassword)||!reg_phone.test(this.tel)||!reg_phone.test(this.merchantText)){
+      if(!reg_username.test(this.yname)||!reg_pwd.test(this.password)||!reg_pwd.test(this.repassword)||!reg_phone.test(this.tel)||!reg_text.test(this.merchantText)){
             alert("请完成注册信息的正确填写！");
             return;
           }
@@ -380,6 +484,10 @@ axios.defaults.withCredentials=true;
             var result=ret.data.code;
             if(result==1)
             {
+              //alert("注册成功");
+              axios.post(`/addlogo`,formData).then((ret) => {
+
+              })
               //alert("注册成功");
               location.href="loginmer.html";
             }else{

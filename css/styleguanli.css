@@ -96,16 +96,24 @@ table.c_tab tr th{
 	width:280px; height:35px; float:left;
 }
 .ss_list{
-	 background:url(../images/t_arrow.gif) no-repeat right center;  display:inline; margin-left:10px; padding-right:15px; cursor:pointer; position:relative;
+	 background:url(../images/t_arrow.gif) no-repeat right center;  display:inline; margin-left:5px;
+	  padding-right:15px; cursor:pointer; position:relative;
 }
 .ss_list:hover .ss_list_bg{
 	display:block; 
+}
+.ss_list:hover .ss_list_bgu{
+	display:block; 
+}
+.ss_list_bgu{
+	width:116px; overflow:hidden; position:absolute; left:50%; top:25px; margin-left:-58px; z-index:900; display:none;
 }
 .ss_list_bg{
 	width:116px; overflow:hidden; position:absolute; left:50%; top:15px; margin-left:-58px; z-index:900; display:none;
 }
 .ss_list_t{
-	height:7px; line-height:7px; overflow:hidden; background:url(../images/c_t.gif) no-repeat center top; position:absolute; left:0; top:0;
+	height:7px;  overflow:hidden; background:url(../images/c_t.gif) no-repeat center bottom; 
+	position:absolute; left:0; top:0;
 }
 .ss_list_c{
 	overflow:hidden; background-color:#FFF; font-family:"Microsoft YaHei"; margin-top:6px; padding:10px 0; border:1px solid #cdcdcd;
@@ -216,8 +224,8 @@ input::-webkit-input-placeholde{
 .house-list TD.house-thumb SPAN {
 	BORDER-BOTTOM: #ccc 1px solid; BORDER-LEFT: #ccc 1px solid; PADDING-BOTTOM: 15px; PADDING-LEFT: 3px; PADDING-RIGHT: 3px;  BORDER-TOP: #ccc 1px solid; BORDER-RIGHT: #ccc 1px solid; PADDING-TOP: 3px
 }
-.house-list TD DL DT {
-	FONT-SIZE: 14px; FONT-WEIGHT: bold;font-size: 24px; padding-left:10px ;
+.house-list TD DL DT A{
+	FONT-SIZE: 16px; FONT-WEIGHT: bold; padding-left:10px ;
 }
 .house-list TD.house-type {
 	TEXT-ALIGN: center; WIDTH: 100px

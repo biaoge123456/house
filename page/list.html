@@ -111,31 +111,38 @@
     <div class="soubg">
       <div class="sou">
         <span class="fr">
-          <span class="fl ss_list" style="height: 35px;" >你好，{{message}}<i v-show="!(uid=='null')">
-            <a href="#">{{myName}}</a>
+          <span class="fl ss_list" style="height: 35px;" >{{message}}<i v-show="uid!='null'">
+            
+            <div v-if='ulogo=="null"' id=logologo class="fl"><IMG src="../images/logo.png" width="25" height="25"></div>
+              <div v-if='ulogo!="null"' class="fl" ><IMG style="border-radius:12px;" :src="'http://localhost:80/toplogo/'+ulogo.logopath"  width="25" height="25"></div>
+               
+            <a href="#" style="color:limegreen">{{myName}}</a>
             </i>
-            <i v-show="uid=='null'">请<a href="login.html">登录</a><a href="regs.html"
+            <i v-show="uid=='null'">你好，请<a href="login.html">登录</a><a href="regs.html"
               style="color:#ff4e00;">免费注册</a>
             </i>
-            <div class="ss_list_bg" v-show="!(uid=='null')">
+            <div class="ss_list_bgu" v-show="uid!='null'">
               <div class="s_city_t"></div>
               <div class="ss_list_c">
                 <ul>
+                  <li><a  @click='goupdaeuser(uid)'>修改个人资料</a></li>
                   <li><a href="login.html">切换账号</a></li>
-                  <li><a  @click="exitLogin()">退出登录</a></li>
+                  <li><a class="outlogin" @click="exitLogin()">退出登录</a></li>
                 </ul>
               </div>
             </div>
           </span>
           <span class="ss">
             <div class="ss_list">
-              <a href="#">收藏夹</a>
+              <a href="#">我的关注</a>
               <div class="ss_list_bg">
                 <div class="s_city_t"></div>
                 <div class="ss_list_c">
                   <ul>
-                    <li><a href="#">我的收藏夹1</a></li>
-                    <li><a href="#">我的收藏夹2</a></li>
+                    <li v-for='gz in guanzhumers'>
+                      <a  @click='gomerlist(gz.id)'>{{gz.name}}</a>
+                    </li>
+                  
                   </ul>
                 </div>
               </div>
@@ -251,11 +258,11 @@
       <div class="head-wrap">
         <ul class="head-nav">
           <li><a href="#" class="current">房源信息∨</a></li>
-          <li><a href="#" @mouseover="lgmouseover('公寓')"  @click="lgdoSearch();">品牌公寓</a></li>
-          <li><a href="#" @mouseover="lgmouseover('民宿')"  @click="lgdoSearch();">民宿短租</a></li>
-          <li><a href="#" @mouseover="lgmouseover('房东直租')"  @click="lgdoSearch();">房东直租</a></li>
-          <li><a href="#" @mouseover="lgmouseover('酒店')"  @click="lgdoSearch();">附近酒店</a></li>
-          <li><a href="#" @mouseover="lgmouseover('旅社')"  @click="lgdoSearch();">青年旅社</a></li>
+          <li><a href="#"   @click="godoSearch('公寓');">品牌公寓</a></li>
+          <li><a href="#"  @click="godoSearch('民宿');">民宿短租</a></li>
+          <li><a href="#"  @click="godoSearch('房东直租');">房东直租</a></li>
+          <li><a href="#"   @click="godoSearch('酒店');">附近酒店</a></li>
+          <li><a href="#"  @click="godoSearch('旅社');">青年旅社</a></li>
           <li><a href="regsmer.html">上传出租房</a></li>
         </ul>
       </div>
@@ -418,7 +425,11 @@
         myName:"请登录",
         uid:null,
         message:null,
-        lgtext:['酒店','公寓','住宿','出租房','民宿']
+        guanzhumers:[],
+        guanzhus:null,
+        gzmerids:[],
+        lgtext:['酒店','公寓','住宿','出租房','民宿'],
+        ulogo:'null',
       },
       computed:{
          
@@ -428,8 +439,44 @@
         //var reg = /\d+/;
          
         //从localStorage对象中获取信息
+        if(localStorage.counter){
         this.uid=localStorage.getItem("uid");
+        if(this.uid!='null'){
+        //发送异步请求获取数据--加载ulogo
+        axios.get('/getlogo',{params:{'uid':this.uid}}).then((ret) => {
+          //获取后台数据
+          this.ulogo = ret.data;
+
+        }); 
         this.myName=localStorage.getItem("name");
+
+         
+        //加载收藏内容--关注
+        axios.get('/getGz',{params:{'uid':this.uid}}).then((ret) => {
+          //获取后台数据关注的[]
+          this.guanzhus=ret.data;
+          //获取商家id【】
+          ret.data.forEach((item,index,arr)=>{
+            console.log(item.merid+'......'+index+'='+this.guanzhus[0].merid)
+            this.gzmerids.push(item.merid);
+          })//去重
+            Array.from(new Set(this.gzmerids)).forEach((item,index,arr)=>{
+              //查名
+              axios.get('/users/getUserMESSAGE',{params:{'uid':item}}).then((ret) => {
+           this.guanzhumers.push(ret.data.data);
+            
+              })
+          })
+
+        });
+        }
+        localStorage.counter=Number(localStorage.counter)+1;
+        
+        }else{
+                    localStorage.counter=1;
+                }
+               
+            
         console.log(this.uid+'---'+this.myName)
         //发送异步请求获取数据--加载住房类型
         axios.get('type/getTypeData').then((ret) => {
@@ -437,6 +484,8 @@
           this.types = ret.data.data;
 
         });
+        
+
         //加载省名
         axios.get('pubQU/pubPub', { params: { 'id': this.Shengid } }).then((ret) => {
           //获取乡镇后台数据
@@ -460,7 +509,7 @@
 
         });
 
-        /**
+        
           //调用后台api获取所有出租房
         axios.get('house/searchHouse').then((ret) => {
           //获取后台数据
@@ -479,13 +528,13 @@
             })
 
           })
-
+          //加载广告
+          $('.gg-btn')[0].click();
         });
-          **/
+         
       //加载出租房 及 加载广告
-     $('.search-btn')[0].click();
-      
-     
+    // $('.search-btn')[0].click();
+   
       },
 
       methods: {
@@ -500,8 +549,10 @@
                 this.uid=null;
                 localStorage.setItem('uid',null);
                 localStorage.setItem('name','请登录');
+                localStorage.setItem('userId',null);
                 location.href='list.html';
               }
+              //刷新页面
         });
         },
         
@@ -600,6 +651,24 @@
          //doSearch();  不能直接调方法，通过事件触发 
          $('.search-btn')[0].click();
       },
+      godoSearch:function(str){
+         //表单对象的名称与后台参数的名称相同
+         var formData = new FormData(document.getElementById("sform"));  
+          formData.set('title',str);
+  axios.post('house/searchHouseBysid', formData).then((ret) => {
+    //获取后台数据
+    this.houses = ret.data.data.list;
+    this.curpage = ret.data.data.curPage;  //获取当前页
+    this.pages = ret.data.data.totalPage;  //获取总页
+    ret.data.data.list.forEach((item, index, arr) => {
+      //加载县区域名称
+      axios.get('pubQU/pubPub', { params: { 'id': item.pid } }).then((ret) => {
+        //获取后台数据
+        item.pname = ret.data.data.name;
+      })
+    })
+  })
+      },
       //分页导航
       goPage: function (num) {
         //alert("页码是:"+num);
@@ -676,21 +745,62 @@
           localStorage.setItem('uid',this.uid);
         }
         
-        open("details.html",null);  //跳转页面
+        open("details.html",null,width="900", height="700");  //跳转页面
 
       },
+      gomerlist(userId,mername){
+          if(this.uid=="null"){
+            localStorage.setItem("uid",null);
+            localStorage.setItem("name",'请登录');
+          }else{
+            localStorage.setItem("uid",this.uid);
+            localStorage.setItem("name",this.myName);
+            localStorage.setItem('userId',userId);
+          }
+          open("merlist.html",null);
+        },
+        goupdaeuser(uid){
+          if(this.uid=="null"){
+            localStorage.setItem("uid",null);
+            localStorage.setItem("name",'请登录');
+          }else{
+            localStorage.setItem("userid",uid);
+            open("updateuser.html",null,width="900", height="700");
+          }
+          
+        },
 
     },
     props:{
      
     },
     updated(){
-
+      
     },
     });
 
   };
 
-
+  window.onbeforeunload=function()  
+      {       
+        //用户点击浏览器右上角关闭按钮
+        if(event.clientX>document.body.clientWidth&&event.clientY<0||event.altKey)  
+        {  
+                document.getElementById("btnCompelete").click();
+//              window.event.returnValue="确定要退出本页吗?"; 
+                  document.getElementById("outlogin").click();
+        }
+        //用户点击任务栏，右键关闭
+        else if(event.clientY > document.body.clientHeight || event.altKey)
+        {
+            document.getElementById("btnCompelete").click();
+//            window.event.returnValue="确定要退出本页吗?"; 
+              document.getElementById("outlogin").click(); 
+        }
+         else//其他情况为刷新  
+         {  
+              alert("你在刷新");
+         }  
+      } 
  
 </script>

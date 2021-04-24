@@ -1,13 +1,16 @@
 /* .bodywrap{max-width: 989px;margin: 0 auto;} color: #f60 !important;*/
-.cw{max-width: 980px;margin: 0 auto;}
+.cw{max-width: 100%;margin: 0 auto;}
 a:hover{text-decoration: underline !important;}
 
 .logo{line-height: 80px;}
 .logo .text{font-size: 24px;margin-left: 25px;color:#ff3c3c}
 
-.content{background: url('../images/login/logbg3.jpg') no-repeat center center;height: 475px;margin: 0 auto;}
+.content{height: 475px;width: 100%;;  margin: 0 auto;}
+.mercontent{background: url('../images/login/logbgmer.gif') no-repeat center center;height: 475px;width: 100%;;  margin: 0 auto;}
+.usercontent{background: url('../images/login/logbg3.gif') no-repeat center center;height: 475px;width: 100%;;  margin: 0 auto;}
+.cjcontent{background: url('../images/login/logbg2.gif') no-repeat center center;height: 475px;width: 100%;;  margin: 0 auto;}
 
-.content .login-wrap{background-color: #fff;width: 345px;margin-top: 40px;}
+.content .login-wrap{background-color: #fff;width: 345px;margin-top: 40px;margin-right:30px ;}
 
 .content .switch{padding: 18px 0;border-bottom: 1px solid #f4f4f4;}
 .content .switch div{font-size: 18px;color: #666;width: 50%;box-sizing: border-box;text-align: center;display: inline-block;}

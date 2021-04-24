@@ -1,0 +1,695 @@
+<!DOCTYPE HTML
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0044)http://localhost:8080/HouseRent/page/add.jsp -->
+
+<HTML xmlns="http://www.w3.org/1999/xhtml">
+
+<HEAD>
+  <TITLE>惠民小家 -修改发个人资料</TITLE>
+  <META content="text/html; charset=utf-8" http-equiv=Content-Type>
+    <META name=GENERATOR content="MSHTML 8.00.7601.17514">
+      <link rel="stylesheet" href="../css/global.css">
+      <LINK rel=stylesheet type=text/css href="../css/regs.css">
+      <link rel="stylesheet" href="../css/stylelogin.css">
+  
+    </script>
+  <script type="text/javascript" src="../js/jquery-1.12.4.js"></script>
+  <script type="text/javascript" src="../js/vue.min.js"></script>
+  <script type="text/javascript" src="../js/axios.min.js"></script>
+  <script type="text/javascript" src="../js/vue-router.min.js"></script>
+
+  <style>
+    .textt,
+    .text1,
+    .text2,
+    .text3 {
+      height: 35px;
+      background: url(../images/t_arrow.gif) no-repeat right center;
+      padding-right: 15px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .s_city_b {
+      width: 100px;
+      height: 35px;
+      text-align-last: center;
+      line-height: 35px;
+    }
+
+    .s_city {
+      height: 35px;
+      background: url(../images/t_arrow.gif) no-repeat right center;
+      float: left;
+      padding-right: 15px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .s_city:hover .s_city_bg {
+      display: block;
+    }
+
+    .s_city_bg {
+      width: 254px;
+      overflow: hidden;
+      position: absolute;
+      left: -50px;
+      top: 19px;
+      z-index: 900;
+      display: none;
+    }
+
+    .s_city_t {
+      width: 9px;
+      height: 7px;
+      line-height: 7px;
+      overflow: hidden;
+      background: url(../images/c_t.gif) no-repeat center top;
+      position: absolute;
+      left: 55px;
+      top: 0;
+    }
+
+    .s_city_c {
+      width: 252px;
+      height: 460px;
+      overflow: hidden;
+      background-color: #FFF;
+      font-family: "Microsoft YaHei";
+      margin-top: 6px;
+      border: 1px solid #cdcdcd;
+    }
+
+    .s_city_c h2 {
+      width: 230px;
+      height: 29px;
+      line-height: 29px;
+      overflow: hidden;
+      font-size: 14px;
+      font-weight: normal;
+      text-align: left;
+      margin-top: 5px;
+      border-bottom: 1px dotted #666666;
+    }
+
+    table.c_tab tr th {
+      line-height: 26px;
+      font-weight: normal;
+      color: #000;
+      width: 20px;
+      text-transform: uppercase;
+    }
+
+    .c_h span {
+      line-height: 26px;
+      display: inline;
+      padding: 0 3px;
+      margin-right: 3px;
+      cursor: pointer;
+    }
+
+    .c_h span:hover {
+      background-color: skyblue;
+      color: #fff;
+    }
+
+    .spanem {
+      color: #FFF;
+      background-color: #ff4e00;
+    }
+
+    .uploadFile input {
+      /* 隐藏uploadFile默认的"打开文件"样式 padding: 10px 0;*/
+      display: none;
+    }
+
+    .uploadFile {
+      display: flex;
+      height: 120px;
+      line-height: 60px;
+      
+      border-bottom: 1px solid rgb(235, 235, 235);
+      overflow: hidden;
+    }
+
+    .uploadFile ul {
+      display: flex;
+    }
+
+    .uploadFile ul li {
+      margin-right: 10px; 
+    }
+
+    .uploadFile .addPic img {
+      height: 120px;
+      width: 120px;
+    }
+
+    .uploadFile p {
+      height: 120px;
+      width: 120px;
+      margin-top: 0px;
+      font-size: 15px;
+      border: 1px dashed rgba(158, 157, 157, 0.116);
+      color: rgb(124, 109, 109);
+      background-color: rgba(248, 234, 234, 0.041);
+    }
+      
+.jc-flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+    .jc-range{
+        width: 300px;
+        border-radius:10px;
+        background-color: #e9e9e9;
+        position: relative;
+        transition: 1s all;
+        user-select: none;
+        color: #585858;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50px; /*no*/
+    }
+ .el-icon-success{
+            position: absolute;
+            width: 50px;/*no*/left: 0;
+            height: 100%;border-radius:10px;
+            color: #3fcd26;
+            background:url(../images/login/ok.png) no-repeat 2px 50%;
+            background-color: #fff;
+            border: 1px solid #d8d8d8;
+            cursor: pointer;
+            font-size: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+ }   
+.success{
+        width: 300px;
+        border-radius:10px;
+        background-color: #3fcd26;
+        position: relative;
+        transition: 1s all;
+        user-select: none;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50px; /*no*/
+        }
+.el-icon-d-arrow-right{
+            position: absolute;
+            left: 0;border-radius:10px;
+            width: 50px;/*nono-*/
+            height: 100%;
+            color: #585858;
+            background:url(../images/login/heart.png) no-repeat 20px 50%; 
+            background-color: #fff;
+            border: 1px solid #d8d8d8;
+            cursor: pointer;
+            font-size: 24px;
+            display: flex;
+            justify-content: center;
+           align-items: center;
+}
+
+    #footer  a:hover{color: rgb(0, 0, 0);}
+  </style>
+
+</HEAD>
+
+<BODY>
+  <div id="app"  style="background: url(../images/login/logbg.gif) no-repeat 0 -30px">
+    <DIV id=header class=wrap>
+      <DIV v-if='logourl==""' id=logo class="fl"><IMG src="../images/logo.png" width="240" height="160"></DIV>
+        <p v-if='logourl==""' class="fl">惠民小家</p>
+        <DIV v-if='logourl!=""'  class="fl"><IMG style="border-radius:60px;margin-left: 30px;margin-top: 10px;" :src="'http://localhost:80/toplogo/'+logourl"  width="200" height="120"></DIV>
+          <p v-if='logourl!=""'  style="text-align: center; width: 200px; height:20px;margin-left: 30px;margin-top:120px;">{{mername}}</p>
+       
+    </DIV>
+    <DIV id=regLogin class=wrap>
+      <DIV class=dialog>
+        <DL class=clearfix>
+          <DT>修改个人资料--更新发布</DT>
+          <DD class=past>编辑个人资料</DD>
+        </DL>
+        <DIV class=box>
+          <FORM action="" name="form1" id="form1">
+            <DIV class=infos>
+            <TABLE class=field>
+              <TBODY>
+              <TR>
+                <TD class=field>用户名：</TD>
+                <TD><INPUT class="text uname"  type=text v-model="uname" name=name @blur="yanzName(uname)"> 
+                  <span v-if="resultname == 1" style="color: rgb(13, 194, 67);">{{msgname}}</span>
+                  <span v-if="resultname == 0" style="color: red;">{{msgname}}</span>
+                </TD></TR>
+                
+                <TR><td><a @click='chongzhi()'>我要重置密码?</a></td></TR>
+                <TR v-if='chongz'>
+                  <TD class=field>原密码：</TD>
+                  <TD><INPUT class="text pw" type=password name=yuanpassword v-model="yuanpw"
+                    placeholder="若要重置密码，请输入正确的密码！"  @blur="yanzyuanpw(yuanpw)">
+                    <span v-if="pwyanz" style="color: rgb(13, 194, 67);">√</span>
+                     <span v-if="!pwyanz" style="color: red;">*</span>
+                  </TD></TR>
+              <TR  v-show='pwyanz'>
+                <TD class=field>重置密码：</TD>
+                <TD><INPUT class="text pw" type=password name=password v-model="pw" @blur="yanzpw(pw)">
+                  <span v-if="pwhint" style="color: rgb(13, 194, 67);">√</span>
+      <span v-if="!pwhint" style="color: red;">*</span>
+                </TD></TR>
+              <TR  v-show='pwyanz'>
+                <TD class=field>确认密码：</TD>
+                <TD><INPUT class="text repw" type=password name=repassword v-model="repw"  @blur="yanzrepw(repw)"> 
+                  <span v-if="repwhint" style="color: rgb(13, 194, 67);">√</span>
+                  <span v-if="!repwhint" style="color: red;">*</span>
+                </TD></TR>
+              <TR>
+                <TD class=field>手机号码：</TD>
+                <TD><INPUT class="text tel" type=text name=telephone v-model="tel" @blur="yanzTelephone(tel)"> 
+                  <span v-if="resultTelephone == 1" style="color: rgb(13, 194, 67);">{{msgTelephone}}</span>
+                  <span v-if="resultTelephone == 0" style="color: red;">{{msgTelephone}}</span>
+                </TD></TR>
+                <TR>
+                  <TD class=field>商家描述：</TD>
+                  <TD> <textarea class="text"  placeholder="请输入不少于20字的介绍！" name=merchanttext
+                    v-model="texts" @blur="yanztext(texts)"
+                      style="border:1px silod lightseagreen;overflow:auto; color:#1b0101;width:280px;"></textarea>
+                      <span v-if="texts.length>20" style="color: rgb(13, 194, 67);">√</span>
+                      <span v-if="texts.length&lt;20" style="color: red;">*</span>
+                  </TD>
+                </TR>
+                <tr style="height: 120px;">
+                  <TD class=field>Logo：</TD>
+                  <TD>
+                <div class="uploadFile">
+                  <!-- ul、li标签用于展示从本地添加的预览图片 -->
+                  <ul>
+                    <li v-for="(item,index) in uploadImg" :key="index" class="addPic">
+                      <img :src="item"/>
+                    </li>
+                  </ul>
+                  <div class="pfilediv" v-show="imgnames">
+                <input type="file" id="pfile" accept="image/*" @change="getPicture($event)" name=logopath v-show="imgnames" >
+              </div>
+                  <p>jpg/png/gif图片<br><a @click="callFile()" >&nbsp;&nbsp;添加</a> &nbsp;|  &nbsp;<a @click="delnum()">删掉 </a><br></p>
+                </div>
+              </TD>
+                </tr>
+              <TR>
+                <TD class=field>验  &nbsp;  证：</TD>
+                <TD>
+                  <!--<INPUT class=text type=text name=username><hidden name=merchantText v-model="mtext"></hidden>> -->
+                 
+                    <div class="jc-component__range">
+                           <div class="" :class="rangeStatus?'success':'jc-range'" >
+                               <i @mousedown="rangeMove" :class="rangeStatus?successIcon:startIcon"></i>
+                               {{rangeStatus?successText:startText}}
+                           </div>
+                        </div>
+            
+                </TD></TR>
+              </TBODY>
+            </TABLE>
+            <DIV class=buttons><INPUT @click="updateh();" value=更新发布 type=button>
+
+            </DIV>
+            
+
+
+</DIV>
+</FORM>
+
+</DIV>
+</DIV>
+</DIV>
+<DIV id=footer class=wrap>
+
+<div id="footer" >
+<div class="footer-wrap cw">
+<a href="#" class="fr question"><img class="v-middle" src="../images/login/comment.png">登陆页面，调查问卷</a>
+<div class="clear"></div>
+<div class="links fz0 text-center">
+<a href="#">关于我们</a>
+<a href="#">联系我们</a>
+<a href="#">人才招聘</a>
+<a href="regsmer.html">商家入驻</a>
+<a href="#">广告服务</a>
+<a href="#">友情链接</a>
+<a href="#">销售联盟</a>
+<a href="#">意见反馈</a>
+<a href="#">帮助中心</a>
+<a href="#">English Site</a>
+</div>
+<div class="copyright text-center" style="text-align-last: center;">惠民小家租房网 © 2018 彡小小家 粤ICP证4056801号</div>
+</div>
+</div>
+</div>
+</BODY>
+</HTML>
+<script>
+
+  // 配置请求的基准URL地址
+  axios.defaults.baseURL = 'http://localhost:8089/';
+  //在前端页面中设置支持sesson共享floorage price
+  axios.defaults.withCredentials = true;
+  var reg_username = /^[a-zA-Z_$\u4e00-\u9fa5][a-zA-Z_$\u4e00-\u9fa5]{3,12}$/;
+		
+    var reg_pwd = /^\w{6,16}$/;
+    
+    var reg_phone = /^1[35789]\d{9}$/;
+    
+    var reg_text=/[a-z0-9A-Z_$\u4e00-\u9fa5，,\.。！@；;]{20,100}$/;
+
+ 
+  var vue = new Vue({
+    el: "#app",
+    data: {
+      userid:null,//id
+      uname:null,//用户名
+      pw:null,//***
+      repw:null,
+      tel:null,//dianhua
+      texts:'',
+      logourl:'',
+      resultname:0,
+      msgname:'',
+      resultTelephone:0,
+      msgTelephone:'',
+      repwhint:false,
+      pwhint:false,
+      pwyanz:false,
+      yuanpw:null,
+      chongz:false,
+      yuanpassword:null,
+      uploadImg:[],
+      imgnames:false, 
+      mername:null,
+       //status: false,
+        //成功图标
+        successIcon: 'el-icon-success',
+        //成功文字
+        successText:'验证成功',
+        //开始的图标
+        startIcon: 'el-icon-d-arrow-right',
+        //开始的文字
+        startText:'请拖住滑块，拖动到最右边',
+        //或者用值来进行监听
+        status:"",
+            disX : 0,
+            rangeStatus: false,   
+    },
+    computed: {
+  
+    },
+    mounted: function () {
+  
+    
+        //加载要修改user的信息
+       //从localStorage对象中获取信息
+       this.userid=localStorage.getItem("userid");
+      //alert("获取的id编号:"+id);
+      if(this.userid!='null'){
+      axios.get('/users/getUserMESSAGE', {
+          params: {   //表示给服务器传递的参数ret.data.data.pubdate+''
+             uid:this.userid
+          }
+        }).then((ret) => {    
+            this.uname=ret.data.data.name; 
+            this.mername=ret.data.data.name;
+           
+            this.texts=''+ret.data.data.merchanttext;
+            this.tel=ret.data.data.telephone;
+        }) 
+       //发送异步请求获取数据--加载ulogo
+       axios.get('/getlogo',{params:{'uid':this.userid}}).then((ret) => {
+          //获取后台数据
+          this.logourl=ret.data.logopath;
+          this.uploadImg.push('http://localhost:80/toplogo/'+ret.data.logopath);
+          console.log(ret.data.logopath)
+        });
+        
+
+      }
+
+
+    
+
+    },
+    methods: {
+      chongzhi(){
+        this.chongz=true;
+      },
+    
+      updateh: function () {   //user
+
+        if(!reg_username.test(this.uname)||!reg_text.test(this.texts)||!reg_phone.test(this.tel)){
+            alert("请完成注册信息的正确填写！");
+            return;
+          }
+          if(!this.rangeStatus){
+            alert("请完成验证之后在注册！");
+            return;
+          }
+        //1.使用FormData序列化表单(有文件上传必需用它，且表单添加entype属性以post方式提交)
+        var formData = new FormData(document.getElementById("form1"));
+        //遍历this.imgnames文件流图片拼装到FormData中
+        formData.append('id',this.userid)
+        axios.post(`/users/updateu`, formData).then((ret) => {
+          var result = ret.data.code;
+          if (result == 1) {
+            //alert("发布成功");
+            axios.post(`/updelogo`, formData).then((ret) => {
+
+            })
+            location.href = "login.html";
+          } else {
+            alert("更新失败!" + ret.data.message);//不是给用户看的 前端开发人员看
+          }
+        });
+      },
+
+
+
+      delnum:function(){
+        
+        //lastElementChild.innerHTML方法可以用来获取元素最后一个子元素标签
+        $('.addPic')[0].lastElementChild.innerHTML='';
+        $('.pfilediv')[0].lastElementChild.innerHTML='';
+        //delete this.uploadImg[id];删除数组指定元素
+        this.uploadImg.pop();//删除数组最后一个元素
+    
+     
+      },
+      getPicture(e) {
+        //预览图片
+        let src = window.URL.createObjectURL(e.target.files[0]);
+        this.uploadImg.push(src);
+        if (this.uploadImg.length >= 2) {
+          this.uploadImg.pop();
+          return alert("最多只能上传1张图片");
+        }
+        var imgSize = e.target.files[0].size;  //b
+        if (imgSize > 1024 * 1024 * 5) {//5M
+          this.uploadImg.pop();
+          return alert("上传图片不能超过5M");
+        }
+        if (e.target.files[0].type != 'image/png' && e.target.files[0].type != 'image/jpeg' && e.target.files[0].type != 'image/gif') {
+          this.uploadImg.pop();
+          return alert("图片上传格式不正确");
+        }
+        //将图片文件转化成base64格式图片
+        var reader = new FileReader();
+        reader.onload = (e) => {
+          //e.target.result  就是从本地读取的图片的base64格式,将它上传图片数据给服务器即可
+          //使用axios的post方法上传即可
+          this.imgnames=e.target.result;
+        }
+        reader.readAsDataURL(e.target.files[0])
+              
+      },
+      callFile() {
+        
+        $("#pfile")[0].click();
+        console.log($("#pfile")[0].id+"==");
+       
+        
+        this.uploadImg.forEach((item,index,arr) => {
+          console.log(item)
+        });
+      },
+      yanzyuanpw:function(yuanpw){
+        var formData=new FormData();
+        formData.append('name',this.uname);
+        formData.append('password',yuanpw);
+        axios.post('users/yuanlogin',formData).then((ret) => {
+          if(ret.data.code==1){    
+            this.pwyanz=true; 
+          }
+        })
+     },
+
+
+      yanzName:function(name){
+       if(!reg_username.test(name)){
+        this.resultname=0;
+          this.msgname='*';
+        alert("用户名必须至少4位到13位，以非数字特殊符号开头。");
+       }else{
+      axios.get('users/getUserName',{params: {'name':name}}).then((ret) => {
+          //获取后台数据
+          this.resultname=ret.data.code;
+          this.msgname=ret.data.message;
+       });
+       }
+     },
+     yanzpw:function(pw){
+      if(!reg_pwd.test(pw)){
+        this.pwhint=false;
+					alert("密码至少6位,最多16位!");
+				}else{
+          this.pwhint=true;
+        }
+     },
+     yanzrepw:function(repw){
+      if(!reg_pwd.test(repw)){
+        this.repwhint=false;
+					alert("密码至少6位,最多16位!");
+				}else{
+          if(repw!=this.pw){
+            this.repwhint=false;
+            alert("重新输入密码不一致!");
+          }else{  
+            this.repwhint=true;
+          }
+        }
+
+     },
+     yanzTelephone:function(tel){
+      if(!reg_phone.test(tel)){
+        this.resultTelephone=0;
+        this.msgTelephone='*';
+					alert("手机号格式不符合要求!");
+				}else
+      axios.get('users/getTelephone',{params: {'telephone':tel}}).then((ret) => {
+          //获取后台数据
+          this.resultTelephone=ret.data.code;
+          this.msgTelephone=ret.data.message;
+       });
+     },
+     yanztext:function(text){
+      if(!reg_text.test(text)){
+        this.texts=text;
+					alert("商家描述至少20字!");
+				}else{
+          this.texts=text;
+          }
+        
+     }, //滑块移动
+      rangeMove(e){
+            let ele = e.target;
+            let startX = e.clientX;
+            let eleWidth = ele.offsetWidth;
+            let parentWidth =  ele.parentElement.offsetWidth;
+            let MaxX = parentWidth - eleWidth;
+            if(this.rangeStatus){//不运行
+                return false;
+            }
+            document.onmousemove = (e) => {
+                let endX = e.clientX;
+                this.disX = endX - startX;
+                if(this.disX<=0){
+                    this.disX = 0;
+                }
+                if(this.disX>=MaxX-eleWidth){//减去滑块的宽度,体验效果更好
+                    this.disX = MaxX;
+                }
+                ele.style.transition = '.1s all';
+                ele.style.transform = 'translateX('+this.disX+'px)';
+                e.preventDefault();
+            }
+            document.onmouseup = ()=> {
+                if(this.disX !== MaxX){
+                    ele.style.transition = '.5s all';
+                    ele.style.transform = 'translateX(0)';
+                    //执行成功的函数
+                    this.rangeStatus=false;
+                }else{
+                    this.rangeStatus = true;
+                    if(this.status){
+                        //this.$parent[this.status] = true;
+                    }
+                    //执行成功的函数
+                    $(this).off("mousemove");
+                    $(this).off("mouseup");
+                }
+                document.onmousemove = null;
+                document.onmouseup = null;
+            }
+        }
+    ,
+     
+
+      },
+      filters:{
+          
+      },
+      
+  });
+function  fmtdate (ydate,fmt) {
+              let date=new Date(ydate);
+            if (/(y+)/.test(fmt)) {
+              fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length))
+            }
+            let o = {
+              'M+': date.getMonth() + 1,
+              'd+': date.getDate(),
+              'h+': date.getHours(),
+              'm+': date.getMinutes(),
+              's+': date.getSeconds()
+            }
+            for (let k in o) {
+              if (new RegExp(`(${k})`).test(fmt)) {
+                let str = o[k] + ''
+                fmt = fmt.replace(RegExp.$1, RegExp.$1.length === 1 ? str : ('00' + str).substr(str.length))
+              }
+            }
+            return fmt
+          }
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
