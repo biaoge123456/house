@@ -52,10 +52,10 @@ html { overflow-y:scroll; filter:progid:DXImageTransform.Microsoft.BasicImage(gr
 
 /*---------------header-导航--------------*/
 .soubg{
-	width:100%; min-width:1280px; height:35px; background-color:#f6f6f6; font-family:"宋体";font-size: 16px;
+	width:100%; min-width:100%; height:35px; background-color:#f6f6f6; font-family:"宋体";font-size: 16px;
 }
 .sou{
-	width:1280px; height:35px; line-height:35px;
+	width:100%; height:35px; line-height:35px;
 }
 .s_city_b{
 	width:250px; height:35px; float:left;
@@ -236,11 +236,11 @@ table.c_tab tr th{
 	height:60px; overflow:hidden; margin-top:25px;
 }
 .des_share .d_sh{
-	width:68px; height:27px; line-height:27px; background:url(../images/sh.png) no-repeat 12px 5px; 
+	width:158px; height:27px; line-height:27px; background:url(../images/sh.png) no-repeat 12px 5px; 
 	text-indent:32px; font-family:"宋体"; float:left; border:1px solid #FFF; cursor:pointer; position:relative; 
 }
 .des_share .d_sh .d_sh_bg{
-	width:176px; height:28px; overflow:hidden; border:1px solid #eaeaea; position:absolute; 
+	width:156px; height:28px; overflow:hidden; border:1px solid #eaeaea; position:absolute; 
 	left:0; top:27px; display:none;
 }
 .des_share .d_sh .d_sh_bg a{

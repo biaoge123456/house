@@ -5,15 +5,17 @@
 
 <HEAD>
   <TITLE>惠民小家租房网 - 首页</TITLE>
-  <META content="text/html; charset=utf-8" http-equiv=Content-Type>
+  <META content="text/html; charset=utf-8" >
+    
   <LINK rel=stylesheet type=text/css href="../css/style.css">
-  <META name=GENERATOR content="MSHTML 8.00.7601.17514">
+
   <script type="text/javascript" src="../js/jquery-1.12.4.js"></script>
 
   <script type="text/javascript" src="../js/axios.min.js"></script>
   <script type="text/javascript" src="../js/vue.min.js"></script>
   <script type="text/javascript" src="../js/vue-router.min.js"></script>
   <script type="text/javascript" src="../js/main.js"></script>
+  <script type="text/javascript" src="../js/baseUrl.js"></script>
 </HEAD>
 
 <BODY>
@@ -22,7 +24,7 @@
     <!--Begin Header Begin-->
     <!--Begin 所在地区 Begin-->
     <span class="s_city_b">
-      <span class="fl">我的位置[</span>
+      <span class="fl">切换位置[</span>
       <span class="s_city">
         <span><span style="color: #ff4e00;"><em>{{Sheng.name}}</em><em>{{temp.name}}</em></span>]</span>
         <div class="s_city_bg">
@@ -111,17 +113,17 @@
     <div class="soubg">
       <div class="sou">
         <span class="fr">
-          <span class="fl ss_list" style="height: 35px;" >{{message}}<i v-show="uid!='null'">
+          <span class="fl ss_list" style="height: 35px;" >{{message}}<i v-show="uid!='null'&&uid!=null">
             
             <div v-if='ulogo=="null"' id=logologo class="fl"><IMG src="../images/logo.png" width="25" height="25"></div>
-              <div v-if='ulogo!="null"' class="fl" ><IMG style="border-radius:12px;" :src="'http://localhost:80/toplogo/'+ulogo.logopath"  width="25" height="25"></div>
+              <div v-if='ulogo!="null"' class="fl" ><IMG style="border-radius:12px;" :src="nginxUrl+'toplogo/'+ulogo.logopath"  width="25" height="25"></div>
                
             <a href="#" style="color:limegreen">{{myName}}</a>
             </i>
-            <i v-show="uid=='null'">你好，请<a href="login.html">登录</a><a href="regs.html"
+            <i v-show="uid=='null'||uid==null">你好，请<a href="login.html">登录</a><a href="regs.html"
               style="color:#ff4e00;">免费注册</a>
             </i>
-            <div class="ss_list_bgu" v-show="uid!='null'">
+            <div class="ss_list_bgu" v-show="uid!='null'&&uid!=null">
               <div class="s_city_t"></div>
               <div class="ss_list_c">
                 <ul>
@@ -153,8 +155,14 @@
                 <div class="s_city_t"></div>
                 <div class="ss_list_c">
                   <ul>
-                    <li><a href="regsmer.html">商家注册</a></li>
-                    <li><a href="loginmer.html">商家登录</a></li>
+                    <li><span>商家与租客请-</span></li>
+                    <li><span>沟通好在交易！</span></li>
+                    <li><span>平台只提供-</span></li>
+                    <li><span>商家房源信息。</span></li>
+                    <li><a style="color:#ff4e00;" href="regsmer.html">商家注册</a></li>
+                    <li><a style="color:#ff4e00;" href="loginmer.html">商家登录</a></li>
+                    <li><a  style="color:#ff4e00;"href="login.html">租客登录</a></li>
+                    <li><a style="color:#ff4e00;"href="regs.html">租客注册</a></li>
                   </ul>
                 </div>
               </div>
@@ -166,20 +174,26 @@
                 <div class="ss_list_c">
                   <ul>
                     <li><a href="https://www.douyin.com" target="_blank">抖音官网</a></li>
+                    <li><a href="https://video.kuaishou.com" target="_blank">快手官网</a></li>
                     <li><a href="https://www.baidu.com" target="_blank">百度搜索</a></li>
+                    <li><a href="https://weibo.com" target="_blank">微博官网</a></li>
                   </ul>
                 </div>
               </div>
             </div>
           </span>
-          <span class="fl">|&nbsp;关注我们：</span>
+          <span class="fl wx">|&nbsp;官方</span>
           <div class="ss_list">
-          <span class="s_sh"><a href="#" class="sh2">微信</a></span>
+          <span class="s_sh"><a href="#" class="sh2">微信咨询</a></span>
           <div class="ss_list_bg">
             <div class="s_city_t"></div>
             <div class="ss_list_c">
-              <ul>
-                <li><a href="#">咨询</a></li>
+              <ul style="width:120px ;">
+                <li><a href="#">加微信号- 请 -</a></li>
+                <li><a href="#">注明来意才通过</a></li>
+                <li><a href="#">微信号：</a></li>
+                <li><a href="#">qq2628887204</a></li>
+                <li><a href="#">微信号：</a></li>
                 <li><a href="#">woaini20200728</a></li>
               </ul>
             </div>
@@ -254,7 +268,7 @@
       <div style="text-align:center">inputvalue</div></div>
      -->
     <DIV class="main wrap">
-      <!--头-->
+      <!--头@click="tiaoDhtml(h.id)"-->
       <div class="head-wrap">
         <ul class="head-nav">
           <li><a href="#" class="current">房源信息∨</a></li>
@@ -271,13 +285,13 @@
           <TR v-for="h in houses">
             <TD class=house-thumb>
               <span><a @click="tiaoDhtml(h.id)" target="_blank">
-                  <img :src="'http://localhost:80/'+h.path.split(',').slice(-1)" width=100% height=85% alt="">
+                  <img :src="nginxUrl+h.path.split(',').slice(-1)" width=100% height=85% alt="">
                 </a></span>
 
             </TD>
             <TD>
               <DL>
-                <DT style="line-height: 20px;"><A @click="tiaoDhtml(h.id)" target="_blank">{{h.title}}</A></DT>
+                <DT style="line-height: 20px;"><a :href="'details.html#?id='+h.id" target="_blank">{{h.title}}</a></DT>
                 <DD>
                 
                   <hidden v-set="this.qid=h.pid" v-model=qid></hidden>
@@ -298,7 +312,7 @@
         </TBODY>
       </TABLE>
 
-      <!--广告区-->
+      <!--右广告区-->
       <div class="fr ghouse">
 
         <TABLE class=ghouse-list>
@@ -306,7 +320,7 @@
             <TR v-for="h in gghouses">
               <TD class=ghouse-thumb>
                 <span><a @click="tiaoDhtml(h.id)" target="_blank">
-                    <img :src="'http://localhost:80/'+h.path.split(',').slice(-1)" width=100% height=100% alt="">
+                    <img :src="nginxUrl+h.path.split(',').slice(-1)" width=100% height=100% alt="">
                   </a></span>
 
               </TD>
@@ -325,7 +339,7 @@
               <TD class=ghouse-type>{{h.tname}}</TD>
 
             </TR>
-            <TR class=odd v-show="houses==null">
+            <TR class=odd v-show="gghouses==null">
               <TD>无租房信息...请更换房源>>></TD>
             </TR>
           </TBODY>
@@ -360,11 +374,50 @@
         </div>
       </div>
 
-    </DIV>
+    
+<!--下广告区-->
+<div >
 
+  <TABLE class="xghouse-list fl">
+    <TBODY>
+      <TR v-for="h in xgghouses">
+        
+          <TD class=house-thumb>
+            <span><a @click="tiaoDhtml(h.id)" target="_blank">
+                <img :src="nginxUrl+h.path.split(',').slice(-1)" width=100% height=85% alt="">
+              </a></span>
+
+          </TD>
+          <TD>
+            <DL>
+              <DT style="line-height: 20px;"><A @click="tiaoDhtml(h.id)" target="_blank">{{h.title}}</A></DT>
+              <DD>
+              
+                <hidden v-set="this.qid=h.pid" v-model=qid></hidden>
+                {{h.pname}}>{{h.xname}}-/ <font color='red'>{{h.floorage}}平米</font>
+                <br>
+                联系方式：<font color='red'>{{h.contact}}</font>
+              </DD>
+            </DL>
+          </TD>
+          <TD>
+          <br>
+                内饰描述:{{h.description}}
+                <BR>
+        </TD>
+          <TD class=house-type>{{h.tname}}</TD>
+          <TD class=house-price><SPAN>{{h.price}}</SPAN>元/月</TD>
+        </TR>
+        <TR class=odd v-show="xgghouses==null">
+          <TD>无租房信息...请更换房源>>></TD>
+        </TR>
+    </TBODY>
+  </TABLE>
+</div>
+</DIV>
       <div id="footer">
         <div class="footer-wrap cw">
-            <a href="#" class="fr question"><img class="v-middle" src="../images/login/comment.png">登陆页面，调查问卷</a>
+            <a href="#" class="fr question"><img class="v-middle" src="../images/login/comment.png">页面下，功能暂未开通</a>
             <div class="clear"></div>
             <div class="links fz0 text-center">
                 <a href="#">关于我们</a>
@@ -374,7 +427,7 @@
                 <a href="#">广告服务</a>
                 <a href="#">友情链接</a>
                 <a href="#">销售联盟</a>
-                <a href="#">意见反馈</a>
+                <a href="#">QQ投诉2628887204</a>
                 <a href="#">帮助中心</a>
                 
             </div>
@@ -388,10 +441,11 @@
 </HTML>
 <script>
 
-  // 配置请求的基准URL地址
-  axios.defaults.baseURL = 'http://localhost:8089/';
+  // 配置请求的基准URL地址localhost:8089
+console.log(nginxUrl+'????')
+  
   //在前端页面中设置支持sesson共享
-  axios.defaults.withCredentials = true;
+  //axios.defaults.withCredentials = true;
   window.onload = function () {
     
     var vue = new Vue({
@@ -410,6 +464,7 @@
         qid: null,//指定乡镇-->对应县id
         houses: null,//房屋--对象
         gghouses:null,//广告
+        xgghouses:null,//下广告
         curpage: 0,//当前页
         pages: 0,// 总页数
         inputvalue: "",//输入框的值
@@ -423,13 +478,14 @@
         showNext: true,//显示后一页
         showPrev: true,//显示前一页
         myName:"请登录",
-        uid:null,
+        uid:'null',
         message:null,
         guanzhumers:[],
         guanzhus:null,
         gzmerids:[],
         lgtext:['酒店','公寓','住宿','出租房','民宿'],
         ulogo:'null',
+        nginxUrl:nginxUrl
       },
       computed:{
          
@@ -437,11 +493,12 @@
       mounted: function () {
         //每月单价--正则至少一位数字
         //var reg = /\d+/;
-         
+      
         //从localStorage对象中获取信息
-        if(localStorage.counter){
+        
         this.uid=localStorage.getItem("uid");
-        if(this.uid!='null'){
+        console.log(localStorage.getItem("uid")+'11111111')
+        if(this.uid!='null'&&this.uid!='undefault'&&this.uid!=null){
         //发送异步请求获取数据--加载ulogo
         axios.get('/getlogo',{params:{'uid':this.uid}}).then((ret) => {
           //获取后台数据
@@ -469,12 +526,10 @@
           })
 
         });
+
+
         }
-        localStorage.counter=Number(localStorage.counter)+1;
-        
-        }else{
-                    localStorage.counter=1;
-                }
+       
                
             
         console.log(this.uid+'---'+this.myName)
@@ -530,6 +585,7 @@
           })
           //加载广告
           $('.gg-btn')[0].click();
+          this.xgggoto();
         });
          
       //加载出租房 及 加载广告
@@ -549,7 +605,7 @@
                 this.uid=null;
                 localStorage.setItem('uid',null);
                 localStorage.setItem('name','请登录');
-                localStorage.setItem('userId',null);
+                //localStorage.setItem('userId',null);
                 location.href='list.html';
               }
               //刷新页面
@@ -718,6 +774,33 @@
 
         });
       },
+      xgggoto: function() {
+ 
+ //调用后台api获取所有出租房---------广告
+ var ggformData = new FormData();
+   //给表单中添加页码属页 
+  // ggformData.append("page", 1);
+  ggformData.append('uid',1003) 
+  axios.post('house/ggHouses',ggformData).then((ret) => {
+ //获取后台数据
+ this.xgghouses = ret.data.data.list;
+ //this.curpage = ret.data.data.curPage;  //获取当前页
+// this.pages = ret.data.data.totalPage;  //获取总页
+ //this.qid=this.houses.pid;
+ console.log(ret.data.data.list);
+ ret.data.data.list.forEach((item, index, arr) => {
+   //this.qid = item.pid;
+   console.log(item.pid);
+   //加载县区域名称
+   axios.get('pubQU/pubPub', { params: { 'id': item.pid } }).then((ret) => {
+     //获取后台数据
+     item.pname = ret.data.data.name;
+   })
+
+ })
+
+});
+},
       //搜索字的颜色document.getElementById("inputVal").focus();
       ff: function () {
         this.isRed = false;
@@ -738,34 +821,35 @@
       },
       tiaoDhtml:function(Hid){   //去详情   传递出租房编号
         //使用localStorage对象存储数据 setItem("键",值);
-        localStorage.setItem("Hid",Hid);
+        //localStorage.setItem("Hid",Hid);
         if(this.myName=='请登录'){
           localStorage.setItem('uid',null);
         }else{
           localStorage.setItem('uid',this.uid);
         }
         
-        open("details.html",null,width="900", height="700");  //跳转页面
+        open("details.html#?id="+Hid,'HTML'+Hid,"width=1200, height=700,menubar=yes,toolbar=yes");  //跳转页面
 
       },
-      gomerlist(userId,mername){
+      gomerlist(userid,mername){
           if(this.uid=="null"){
             localStorage.setItem("uid",null);
             localStorage.setItem("name",'请登录');
           }else{
             localStorage.setItem("uid",this.uid);
             localStorage.setItem("name",this.myName);
-            localStorage.setItem('userId',userId);
+            //localStorage.setItem('userId',userid);
           }
-          open("merlist.html",null);
+          open("merlist.html#?id="+userid,userid,"width=1200, height=700,menubar=yes,toolbar=yes" );
         },
         goupdaeuser(uid){
           if(this.uid=="null"){
             localStorage.setItem("uid",null);
             localStorage.setItem("name",'请登录');
           }else{
+
             localStorage.setItem("userid",uid);
-            open("updateuser.html",null,width="900", height="700");
+            open("updateuser.html",uid,width="1200", height="700");
           }
           
         },
@@ -803,4 +887,5 @@
          }  
       } 
  
+      
 </script>

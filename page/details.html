@@ -5,18 +5,23 @@
 
 <HEAD>
   <TITLE>惠民小家租房网 -房屋详情</TITLE>
-  <META content="text/html; charset=utf-8" http-equiv=Content-Type>
-  <META name=GENERATOR content="MSHTML 8.00.7601.17514">
+  <META content="text/html; charset=utf-8" >
+   
+  
   <link rel="stylesheet" type="text/css" href="../css/stylexiang.css" />
   <link rel="stylesheet" type="text/css" href="../css/ShopShow.css" />
   <link rel="stylesheet" type="text/css" href="../css/MagicZoom.css" />
-  <script type="text/javascript" src="../js/jquery-1.12.4.js"></script>
+  
   <script type="text/javascript" src="../js/vue.min.js"></script>
   <script type="text/javascript" src="../js/axios.min.js"></script>
   <script type="text/javascript" src="../js/vue-router.min.js"></script>
-
+  
+  <script type="text/javascript" src="../js/jquery-1.12.4.js"></script>
+  <script type="text/javascript" src="../js/clipboard.min.js"></script>
+  
   <script type="text/javascript" src="../js/MagicZoom.js"></script>
   <script type="text/javascript" src="../js/ShopShow.js"></script>
+  <script type="text/javascript" src="../js/baseUrl.js"></script>
 
   <style>
     #outer{
@@ -150,19 +155,19 @@
     <div class="soubg">
       <div class="sou">
         <span class="fr">
-          <a @click='golist()'>[首页]</a>
+          
           <span class="fl ss_list" style="height: 35px;">
             
-            {{message}}<i v-show="uid!='null'">
+            {{message}}<i v-show="uid!='null'&&uid!=null">
               <div v-if='ulogo=="null"' id=logologo class="fl"><IMG src="../images/logo.png" width="25" height="25"></div>
-                <div v-if='ulogo!="null"' class="fl" ><IMG style="border-radius:12px;" :src="'http://localhost:80/toplogo/'+ulogo.logopath"  width="25" height="25"></div>
+                <div v-if='ulogo!="null"' class="fl" ><IMG style="border-radius:12px;" :src="nginxUrl+'toplogo/'+ulogo.logopath"  width="25" height="25"></div>
                 
               <a href="#" style="color:limegreen">{{myName}}</a>
               </i>
-              <i v-show="uid=='null'">你好，请<a href="login.html">登录</a><a href="regs.html"
+              <i v-show="uid=='null'||uid==null">你好，请<a href="login.html">登录</a><a href="regs.html"
                 style="color:#ff4e00;">免费注册</a>
               </i>
-              <div class="ss_list_bgu" v-show="uid!='null'">
+              <div class="ss_list_bgu" v-show="uid!='null'&&uid!=null">
               <div class="s_city_t"></div>
               <div class="ss_list_c">
                 <ul>
@@ -213,7 +218,7 @@
               </div>
             </div>
           </span>
-          <span class="fl">|&nbsp;关注我们：</span>
+          <span class="fl">|&nbsp;关注我们：<a @click='golist()'>[首页]</a></span>
           <div class="ss_list">
             <span class="s_sh"><a href="#" class="sh2">微信</a></span>
             <div class="ss_list_bg">
@@ -248,13 +253,12 @@
 
         <div id="tsShopContainer" >
        
-          <div id="tsImgS" ><a href="addImg[0]"  class="MagicZoom" id="MagicZoom">
+           <div id="tsImgS" ><a href="addImg[0]"  class="MagicZoom" id="MagicZoom">
            
               <img :src="addImg[0]" width="430" height="350" />
-              </a></div>
+              </a>
+            </div>
   
-
-
           <div id="tsPicContainer">
             <div id="tsImgSArrL" onclick="tsScrollArrLeft()"></div>
             <div id="tsImgSCon">
@@ -266,7 +270,8 @@
             </div>
             <div id="tsImgSArrR" onclick="tsScrollArrRight()"></div>
           </div>
-         <img class="MagicZoomLoading" src="../images/loading.gif" alt="Loading..." />
+
+         <img v-if="addImg[0]!=null&&addImg[0]!='null'" class="MagicZoomLoading" src="../images/loading.gif" alt="Loading..." />
  
        
         </div>
@@ -302,13 +307,13 @@
           </div>
           <div class="des_share">
             <div class="d_sh">
-              分享
+              链接已复制-分享
               <div class="d_sh_bg">
-                <a href="https://video.kuaishou.com"><img src="../images/kuaishou.jpg" /></a>
-                <a href="https://qzone.qq.com/"><img src="../images/sh_2.gif" /></a>
-                <a href="https://weibo.com/"><img src="../images/sh_3.gif" /></a>
-                <a href="https://www.renren.com/"><img src="../images/sh_4.gif" /></a>
-                <a href="https://www.douyin.com/"><img src="../images/douyin.jpg" /></a>
+                <a href="https://video.kuaishou.com"class="btn1" :data-clipboard-text="copyurl"><img src="../images/kuaishou.jpg" /></a>
+                <a href="https://qzone.qq.com/"class="btn2" :data-clipboard-text="copyurl"><img src="../images/sh_2.gif" /></a>
+                <a href="https://weibo.com/"class="btn3" :data-clipboard-text="copyurl"><img src="../images/sh_3.gif" /></a>
+                <a href="https://www.renren.com/"class="btn4" :data-clipboard-text="copyurl"><img src="../images/sh_4.gif" /></a>
+                <a href="https://www.douyin.com/"class="btn5" :data-clipboard-text="copyurl"><img src="../images/douyin.jpg" /></a>
               </div>
             </div>
             <div class="d_care"><a class="d_careA" @click="ShowDivA()">关注</a><a class="d_careB" @click="ShowDivBB()">取消&nbsp;&nbsp;&nbsp;&nbsp;</a>&nbsp;{{good}}</div>
@@ -327,7 +332,7 @@
               <div v-for="h in gghouses">
                
                   <a @click="tiaoDhtml(h.id)" target="_blank">
-                      <img :src="'http://localhost:80/'+h.path.split(',').slice(-1)" width=198px height=200px alt="">
+                      <img :src="nginxUrl+h.path.split(',').slice(-1)" width=198px height=200px alt="">
                     </a>
   
               </div>
@@ -535,9 +540,10 @@
 </HTML>
 <script>
   // 配置请求的基准URL地址
-  axios.defaults.baseURL = 'http://localhost:8089/';
+
+  
   //在前端页面中设置支持sesson共享
-  axios.defaults.withCredentials = true;
+  //axios.defaults.withCredentials = true;
 
   var vue = new Vue({
     el: "#app",
@@ -591,6 +597,8 @@
         guanzhus:null,
         gzmerids:[],
         ulogo:'null',
+        copyurl:null,
+        nginxUrl:nginxUrl,
     },
     mounted: function () {
       this.dateone=fmtdate(new Date(),'yyyy-MM-dd');  
@@ -603,16 +611,19 @@
                //从localStorage对象中获取信息
     this.uid=localStorage.getItem('uid');
     console.log(this.uid+'```````````````')
-    if(this.uid=='null'){}else{
-      axios.get('users/getUser').then((ret) => {
+    if(this.uid!='null'&&this.uid!='undefault'&&this.uid!=null){
+     // axios.get('users/getUser').then((ret) => {
+          //获取后台数据
+         // this.myName = ret.data.data.name;
+        //});
+    
+  //  }
+  axios.get('users/getUserMESSAGE',{params:{'uid':this.uid}}).then((ret) => {
           //获取后台数据
           this.myName = ret.data.data.name;
         });
-    
-    }
-
     //发送异步请求获取数据--加载ulogo
-    if(this.uid!='null'&&this.uid!='undefined'){
+   
     axios.get('/getlogo',{params:{'uid':this.uid}}).then((ret) => {
           //获取后台数据
           this.ulogo = ret.data;
@@ -638,10 +649,14 @@
 
         });
     }
-
+   
      //从localStorage对象中获取信息
-     var Hid=localStorage.getItem("Hid");
-     this.id=Hid;
+     //var Hid=localStorage.getItem("Hid");this.id=Hid;
+    this.copyurl=window.location.href;//当前网页路径
+     this.id=this.copyurl.split('?id=')[1];
+     var clipboard  = new Clipboard('.btn1,.btn2,.btn3,.btn4,.btn5', {  //启动
+                //被复制的内容可以在这里进行配置，这时在复制按钮中就不需要写data-clipboard-* 等自定义属性
+            });
       //alert("获取的id编号:"+id);
       axios.get('house/getUpdateHouse', {
           params: {   //表示给服务器传递的参数ret.data.data.pubdate+''
@@ -662,14 +677,15 @@
             this.description=ret.data.data.description;
             this.contact=ret.data.data.contact;
             this.good=ret.data.data.goods;
-            this.uploadvideo.push('http://localhost:80/videos/'+ret.data.data.video);
+            this.uploadvideo.push(this.nginxUrl+'videos/'+ret.data.data.video);
             this.arr=ret.data.data.path.split(',');
             console.log(ret.data.data.path.split(','))
             ret.data.data.path.split(',').forEach((item,index,arr)=>{             
-              if(item!='null'&&item!=''){
-                this.addImg.push('http://localhost:80/'+item);
-                this.uploadImg.push('http://localhost:80/'+item);
-              }      
+             if(item!='null'&&item!=''){
+                this.addImg.push(this.nginxUrl+item);
+                this.uploadImg.push(this.nginxUrl+item);
+              } 
+                   
             })
 
    //加载镇
@@ -718,7 +734,7 @@
      var ggformData = new FormData();
             //给表单中添加页码属页 
        // ggformData.append("page", 1);
-        ggformData.append('uid',1007) 
+        ggformData.append('uid',1004) 
            axios.get('house/ggHouses',ggformData).then((ret) => {
           //获取后台数据
           this.gghouses = ret.data.data.list;
@@ -753,7 +769,7 @@
                 localStorage.setItem('uid',null);
                 localStorage.setItem('name','请登录');
                 this.uid='null';
-                localStorage.setItem('userId',null);
+                //localStorage.setItem('userId',null);
                 location.href="login.html"  //刷新页面
               }
         });
@@ -770,26 +786,37 @@
           if(this.uid=="null"){
             localStorage.setItem("uid",null);
             localStorage.setItem("name",'请登录');
-            localStorage.setItem('userId',userid);
-          }else{
+            //localStorage.setItem('userId',userid);
+          }
             localStorage.setItem("uid",this.uid);
             localStorage.setItem("name",this.myName);
-            localStorage.setItem('userId',userid);     
-          }
-         open("merlist.html",null);
+            //localStorage.setItem('userId',userid);     
+          
+         open("merlist.html#?id="+userid,null);
         },
         tiaoDhtml:function(Hid){   //去详情   传递出租房编号
         //使用localStorage对象存储数据 setItem("键",值);
-        localStorage.setItem("Hid",Hid);
+        //localStorage.setItem("Hid",Hid);
         if(this.myName=='请登录'){
           localStorage.setItem('uid',null);
         }else{
           localStorage.setItem('uid',this.uid);
         }
         
-        open("details.html",null);  //跳转页面
+        open("details.html#?id="+Hid,null);  //跳转页面
 
       },
+        goupdaeuser(userid){
+          if(this.uid=="null"){
+            localStorage.setItem("uid",null);
+            localStorage.setItem("name",'请登录');
+          }
+            
+            localStorage.setItem("userid",userid);
+            open("updateuser.html",null,width="900", height="700");
+          
+          
+        },
         //点赞图标变亮--goods+1
         ShowDivA:function(){
           $('.d_careA').hide();
@@ -839,8 +866,9 @@
     },
     updated(){
       //默认初始大图片
+      if (typeof $('#tsImgSCon ul')[0].lastElementChild !== 'undefined'&&$('#tsImgSCon ul')[0].lastElementChild!= null) {
         $('#tsImgSCon ul')[0].lastElementChild.click();
-
+      }
     }
   })
 

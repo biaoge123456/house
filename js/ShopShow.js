@@ -197,10 +197,12 @@ function FulSs()
 }
 	
 //图片集外面的DIV宽
+if (typeof document.getElementById("tsImgSCon") !== 'undefined'&&document.getElementById("tsImgSCon") != null) {
 document.getElementById("tsImgSCon").style.width=FliS(0).offsetWidth*3+"px";
-//document.getElementById("tsImgSCon").style.width;	
+
 //Ul宽
 FulSs().style.width=FliS(0).offsetWidth*FulS().length+"px";
 
 //图片等比例
 tsScrollResize();
+}

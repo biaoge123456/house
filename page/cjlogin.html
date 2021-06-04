@@ -2,14 +2,16 @@
 <!-- saved from url=(0032)http://localhost:8080/HouseRent/ -->
 <HTML xmlns="http://www.w3.org/1999/xhtml">
   <HEAD><TITLE>惠民小家租房网 - 超级管理员</TITLE>
-<META content="text/html; charset=utf-8" http-equiv=Content-Type>
+<META content="text/html; charset=utf-8" >
+ 
   <link rel="stylesheet" href="../css/stylelogin.css">
   <link rel="stylesheet" href="../css/global.css">
-<META name=GENERATOR content="MSHTML 8.00.7601.17514">
+
   <script type="text/javascript" src="../js/vue.min.js"></script>
   <script type="text/javascript" src="../js/axios.min.js"></script>
   <script type="text/javascript" src="../js/vue-router.min.js"></script>
   <script type="text/javascript" src="../js/main.js"></script>
+  <script type="text/javascript" src="../js/baseUrl.js"></script>
   <style>
     .paymentdetail_compontents {
 
@@ -272,9 +274,10 @@ methods:{
                 }
  };
   // 配置请求的基准URL地址
-  axios.defaults.baseURL = 'http://localhost:8089/';
+
+  
   //在前端页面中设置支持sesson共享
-   axios.defaults.withCredentials=true;
+   //axios.defaults.withCredentials=true;
 
  var vue=new Vue({
    el:"#app",

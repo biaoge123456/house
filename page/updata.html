@@ -1,13 +1,16 @@
 <!DOCTYPE HTML
   PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
-<!-- saved from url=(0044)http://localhost:8080/HouseRent/page/add.jsp -->
+<!-- saved from url=(0044)http://localhost:8080/HouseRent/page/add.jsp
+ <META name=GENERATOR content="MSHTML 8.00.7601.17514" http-equiv=Content-Type>
+-->
 
 <HTML xmlns="http://www.w3.org/1999/xhtml">
 
 <HEAD>
   <TITLE>惠民小家 -修改发布房屋信息</TITLE>
-  <META content="text/html; charset=utf-8" http-equiv=Content-Type>
-    <META name=GENERATOR content="MSHTML 8.00.7601.17514">
+  <META content="text/html; charset=utf-8" >
+    
+   
       <link rel="stylesheet" href="../css/global.css">
       <LINK rel=stylesheet type=text/css href="../css/regs.css">
       <link rel="stylesheet" href="../css/stylelogin.css">
@@ -17,7 +20,7 @@
   <script type="text/javascript" src="../js/vue.min.js"></script>
   <script type="text/javascript" src="../js/axios.min.js"></script>
   <script type="text/javascript" src="../js/vue-router.min.js"></script>
-
+  <script type="text/javascript" src="../js/baseUrl.js"></script>
   <style>
     .textt,
     .text1,
@@ -166,7 +169,7 @@
       <DIV id=header class="fl">
         <DIV v-if='toplogo=="null"' id=logo class="fl"><IMG src="../images/logo.png" width="240" height="160"></DIV>
         <p v-if='toplogo=="null"' class="fr">惠民小家</p>
-        <DIV v-if='toplogo!="null"'  class="fl"><IMG style="border-radius:60px;margin-left: 30px;margin-top: 10px;" :src="'http://localhost:80/toplogo/'+toplogo.logopath"  width="180" height="120"></DIV>
+        <DIV v-if='toplogo!="null"'  class="fl"><IMG style="border-radius:60px;margin-left: 30px;margin-top: 10px;" :src="nginxUrl+'toplogo/'+toplogo.logopath"  width="180" height="120"></DIV>
          <br> <p v-if='toplogo!="null"' class="fl" style="text-align: center; width: 200px; height:20px;margin-left: 30px;margin-top:-2px;">{{mername}}</p>
      </DIV>
     <DIV id=regLogin class="wrap fl">
@@ -393,7 +396,7 @@
 
 <div id="footer" >
 <div class="footer-wrap cw">
-<a href="#" class="fr question"><img class="v-middle" src="../images/login/comment.png">登陆页面，调查问卷</a>
+<a href="#" class="fr question"><img class="v-middle" src="../images/login/comment.png">页面下，功能暂未开通</a>
 <div class="clear"></div>
 <div class="links fz0 text-center">
 <a href="#">关于我们</a>
@@ -416,9 +419,10 @@
 <script>
 
   // 配置请求的基准URL地址
-  axios.defaults.baseURL = 'http://localhost:8089/';
+ 
+  
   //在前端页面中设置支持sesson共享floorage price
-  axios.defaults.withCredentials = true;
+  //axios.defaults.withCredentials = true;
   var reg_title = /^[a-zA-Z_$\u4e00-\u9fa5][a-z0-9A-Z_$\u4e00-\u9fa5，,\.。！@；;]{1,9}$/;
   var reg_floorage = /^[0-9]{1,5}$/;
   var reg_price = /^[0-9]{2,5}$/;
@@ -463,6 +467,7 @@
       hobj:{},
       toplogo:'null',
       mername:'null',
+      nginxUrl:nginxUrl,
     },
     computed: {
   
@@ -500,13 +505,13 @@
             this.description=ret.data.data.description;
             this.contact=ret.data.data.contact;
 
-            this.uploadvideo.push('http://localhost:80/videos/'+ret.data.data.video);
+            this.uploadvideo.push(this.nginxUrl+'videos/'+ret.data.data.video);
             this.arr=ret.data.data.path.split(',');
             console.log(ret.data.data.path.split(','))
             ret.data.data.path.split(',').forEach((item,index,arr)=>{             
               if(item!='null'&&item!=''){
-                this.addImg.push('http://localhost:80/'+item);
-                this.uploadImg.push('http://localhost:80/'+item);
+                this.addImg.push(this.nginxUrl+item);
+                this.uploadImg.push(this.nginxUrl+item);
               }      
             })
 

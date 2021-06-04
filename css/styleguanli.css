@@ -123,7 +123,7 @@ table.c_tab tr th{
 }
 
 .s_sh{
-	width:60px; height:35px; overflow:hidden; float: right;
+	width:100px; height:35px; overflow:hidden; float: right;
 }
 .s_sh a{
 	  line-height:35px; overflow:hidden;  display:inline; padding-right:18px; text-indent:-9999em;
@@ -131,9 +131,10 @@ table.c_tab tr th{
 .s_sh a.sh1{
 	background:url(../images/sh1.png) no-repeat 20px 50%;
 }
-.s_sh a.sh2{
-	background:url(../images/sh2.png) no-repeat 32px 50%;
-}	
+.wx{
+	width:60px; height:35px;display:inline;
+	background:url(../images/sh2.png) no-repeat 40px 50%;
+}
 
 
 /*---------------首页---------------*/

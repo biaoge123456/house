@@ -1,19 +1,21 @@
 ﻿<!DOCTYPE HTML
   PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
-<!-- saved from url=(0030)http://localhost:8080/House-2/ -->
+<!-- saved from url=(0030)http://localhost:8080/House-2/ <meta http-equiv="Access-Control-Allow-Origin" content="*">-->
 <HTML xmlns="http://www.w3.org/1999/xhtml">
 
 <HEAD>
   <TITLE>惠民小家租房网 -超级管理页</TITLE>
-  <META content="text/html; charset=utf-8" http-equiv=Content-Type>
+  <META content="text/html; charset=utf-8" >
+    
   <LINK rel=stylesheet type=text/css href="../css/styleguanli.css">
-  <META name=GENERATOR content="MSHTML 8.00.7601.17514">
+  
   <script type="text/javascript" src="../js/jquery-1.12.4.js"></script>
 
   <script type="text/javascript" src="../js/axios.min.js"></script>
   <script type="text/javascript" src="../js/vue.min.js"></script>
   <script type="text/javascript" src="../js/vue-router.min.js"></script>
   <script type="text/javascript" src="../js/main.js"></script>
+  <script type="text/javascript" src="../js/baseUrl.js"></script>
 </HEAD>
 
 <BODY>
@@ -265,7 +267,7 @@
           <TR v-for="h in houses">
             <TD class=house-thumb>
               <span><a @click="tiaoDhtml(h.id)" target="_blank">
-                  <img :src="'http://localhost:80/'+h.path.split(',').slice(-1)" width=100% height=85% alt="">
+                  <img :src="nginxUrl+h.path.split(',').slice(-1)" width=100% height=85% alt="">
                 </a></span>
 
             </TD>
@@ -403,9 +405,10 @@
 <script>
 
   // 配置请求的基准URL地址
-  axios.defaults.baseURL = 'http://localhost:8089/';
+ 
+  
   //在前端页面中设置支持sesson共享
-  axios.defaults.withCredentials = true;
+  //axios.defaults.withCredentials = true;
   window.onload = function () {
     var vue = new Vue({
       el: "#app",
@@ -444,6 +447,7 @@
         gzmerids:[],
         pdel:false,
         vdel:false,
+        nginxUrl:nginxUrl
       },
       created:function(){
         window.addEventListener('setItem', ()=> {
@@ -518,37 +522,15 @@
           //从localStorage对象中获取信息
           var curpage0a=localStorage.getItem("curpage0a");
           console.log(curpage0a+"------------")
-          if(curpage0a=="null"){
-            //设置页码提交表单
-        var formData = new FormData(document.getElementById("sform"));
-        //给表单中添加页码属页 
-        formData.append("page", this.page);
-     
+          if(curpage0a!=null&&curpage0a!="null"&&curpage0a!='undefault'){
                 //调用后台api获取所有出租房
-                axios.get('house/glsearchHouseBysid',formData).then((ret) => {
-                  //获取后台数据
-                  this.houses = ret.data.data.list;
-                  this.curpage = ret.data.data.curPage;  //获取当前页
-                  this.pages = ret.data.data.totalPage;  //获取总页
-                  //this.qid=this.houses.pid;
-                  console.log(ret.data.data.list);
-                  ret.data.data.list.forEach((item, index, arr) => {
-                    //this.qid = item.pid;
-                    console.log(item.pid);
-                    //加载县区域名称
-                    axios.get('pubQU/pubPub', { params: { 'id': item.pid } }).then((ret) => {
-                      //获取后台数据
-                      item.pname = ret.data.data.name;
-                    });
-
-                  });
-
-                });
-          }else{
-            this.curpage=curpage0a;
+                this.curpage=curpage0a;
             this.jumpPage=curpage0a;
             this.goPage(curpage0a);
        
+          }else{
+           
+         this.doSearch();
           }
 
 
@@ -641,7 +623,8 @@
         doSearch: function () {
           //表单对象的名称与后台参数的名称相同
           var formData = new FormData(document.getElementById("sform")); 
-
+          formData.append("page0", 1);
+          formData.append("page", 1);
           axios.post('house/glsearchHouseBysid', formData).then((ret) => {
             //获取后台数据
             this.houses = ret.data.data.list;
@@ -711,7 +694,7 @@
         //使用localStorage对象存储数据 setItem("键",值);
         localStorage.setItem("Hid",Hid);
         localStorage.setItem( 'curpage',this.curpage);
-        location.href="updata.html";  //跳转页面
+        location.href="cjupdata.html";  //跳转页面
       },
       shIspass:function(Hid){//审核
 //调用后台api审核出租房
@@ -730,13 +713,13 @@ axios.get('house/shIspass', {
       },
       tiaoDhtml:function(Hid){   //去详情   传递出租房编号
         //使用localStorage对象存储数据 setItem("键",值);
-        localStorage.setItem("Hid",Hid);
+        //localStorage.setItem("Hid",Hid);
         if(this.myName=='请登录'){
          // localStorage.setItem('uid',null);
         }else{
          // localStorage.setItem('uid',this.uid);
         }
-        open("details.html",null);  //跳转页面
+        open("details.html?id="+Hid,null);  //跳转页面
       },golist(){
           if(this.uid=="null"){
             localStorage.setItem("name",'');
@@ -745,7 +728,7 @@ axios.get('house/shIspass', {
           }
           location.href="list.html";
         },
-      gomerlist(userId,mername){
+      gomerlist(userid,mername){
        
           if(this.uid=="null"){
             localStorage.setItem("uid",null);
@@ -753,11 +736,11 @@ axios.get('house/shIspass', {
           }else{
             localStorage.setItem("uid",this.uid);
             localStorage.setItem("name",this.myName);
-            localStorage.setItem('userId',userId);
+            //localStorage.setItem('userId',userid);
             localStorage.setItem('mername',mername);
            
           }
-          open("merlist.html",null);
+          open("merlist.html?id="+userid,null);
         },
       //搜索字的颜色document.getElementById("inputVal").focus();
       ff: function () {

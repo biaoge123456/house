@@ -35,8 +35,7 @@
 
 /* CSS style for loading animation box/*加载动画框的css样式*/
 .MagicZoomLoading {
-	width: 400px;
-	height: 303px;
+	
 	text-align:		center;
 	background: 	#ffffff;
 	color:			#444;

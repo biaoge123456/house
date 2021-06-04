@@ -1,0 +1,909 @@
+<!DOCTYPE HTML
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0044)http://localhost:8080/HouseRent/page/add.jsp
+ <META name=GENERATOR content="MSHTML 8.00.7601.17514" http-equiv=Content-Type>
+-->
+
+<HTML xmlns="http://www.w3.org/1999/xhtml">
+
+<HEAD>
+  <TITLE>惠民小家 -修改发布房屋信息</TITLE>
+  <META content="text/html; charset=utf-8" >
+   
+   
+      <link rel="stylesheet" href="../css/global.css">
+      <LINK rel=stylesheet type=text/css href="../css/regs.css">
+      <link rel="stylesheet" href="../css/stylelogin.css">
+  
+    </script>
+  <script type="text/javascript" src="../js/jquery-1.12.4.js"></script>
+  <script type="text/javascript" src="../js/vue.min.js"></script>
+  <script type="text/javascript" src="../js/axios.min.js"></script>
+  <script type="text/javascript" src="../js/vue-router.min.js"></script>
+  <script type="text/javascript" src="../js/baseUrl.js"></script>
+
+  <style>
+    .textt,
+    .text1,
+    .text2,
+    .text3 {
+      height: 35px;
+      background: url(../images/t_arrow.gif) no-repeat right center;
+      padding-right: 15px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .s_city_b {
+      width: 100px;
+      height: 35px;
+      text-align-last: center;
+      line-height: 35px;
+    }
+
+    .s_city {
+      height: 35px;
+      background: url(../images/t_arrow.gif) no-repeat right center;
+      float: left;
+      padding-right: 15px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .s_city:hover .s_city_bg {
+      display: block;
+    }
+
+    .s_city_bg {
+      width: 254px;
+      overflow: hidden;
+      position: absolute;
+      left: -50px;
+      top: 19px;
+      z-index: 900;
+      display: none;
+    }
+
+    .s_city_t {
+      width: 9px;
+      height: 7px;
+      line-height: 7px;
+      overflow: hidden;
+      background: url(../images/c_t.gif) no-repeat center top;
+      position: absolute;
+      left: 55px;
+      top: 0;
+    }
+
+    .s_city_c {
+      width: 252px;
+      height: 460px;
+      overflow: hidden;
+      background-color: #FFF;
+      font-family: "Microsoft YaHei";
+      margin-top: 6px;
+      border: 1px solid #cdcdcd;
+    }
+
+    .s_city_c h2 {
+      width: 230px;
+      height: 29px;
+      line-height: 29px;
+      overflow: hidden;
+      font-size: 14px;
+      font-weight: normal;
+      text-align: left;
+      margin-top: 5px;
+      border-bottom: 1px dotted #666666;
+    }
+
+    table.c_tab tr th {
+      line-height: 26px;
+      font-weight: normal;
+      color: #000;
+      width: 20px;
+      text-transform: uppercase;
+    }
+
+    .c_h span {
+      line-height: 26px;
+      display: inline;
+      padding: 0 3px;
+      margin-right: 3px;
+      cursor: pointer;
+    }
+
+    .c_h span:hover {
+      background-color: skyblue;
+      color: #fff;
+    }
+
+    .spanem {
+      color: #FFF;
+      background-color: #ff4e00;
+    }
+
+    .uploadFile input {
+      /* 隐藏uploadFile默认的"打开文件"样式 padding: 10px 0;*/
+      display: none;
+    }
+
+    .uploadFile {
+      display: flex;
+      height: 120px;
+      line-height: 60px;
+      
+      border-bottom: 1px solid rgb(235, 235, 235);
+      overflow: hidden;
+    }
+
+    .uploadFile ul {
+      display: flex;
+    }
+
+    .uploadFile ul li {
+      margin-right: 10px; 
+    }
+
+    .uploadFile .addPic img {
+      height: 120px;
+      width: 120px;
+    }
+
+    .uploadFile p {
+      height: 120px;
+      width: 120px;
+      margin-top: 0px;
+      font-size: 15px;
+      border: 1px dashed rgba(158, 157, 157, 0.116);
+      color: rgb(124, 109, 109);
+      background-color: rgba(248, 234, 234, 0.041);
+    }
+    #footer  a:hover{color: rgb(0, 0, 0);}
+  </style>
+
+</HEAD>
+
+<BODY>
+  <div id="app"  style="background: url(../images/login/logbg.gif) no-repeat 0 -30px">
+    
+      <DIV id=header class="fl">
+        <DIV v-if='toplogo=="null"' id=logo class="fl"><IMG src="../images/logo.png" width="240" height="160"></DIV>
+        <p v-if='toplogo=="null"' class="fr">惠民小家</p>
+        <DIV v-if='toplogo!="null"'  class="fl"><IMG style="border-radius:60px;margin-left: 30px;margin-top: 10px;" :src="nginxUrl+'toplogo/'+toplogo.logopath"  width="180" height="120"></DIV>
+         <br> <p v-if='toplogo!="null"' class="fl" style="text-align: center; width: 200px; height:20px;margin-left: 30px;margin-top:-2px;">{{mername}}</p>
+     </DIV>
+    <DIV id=regLogin class="wrap fl">
+      <DIV class=dialog>
+        <DL class=clearfix>
+          <DT>修改新房屋信息--发布</DT>
+          <DD class=past>编辑房屋信息</DD>
+        </DL>
+        <DIV class=box>
+          <FORM id=form1 method=post name="" enctype="multipart/form-data">
+            <DIV class=infos>
+              <TABLE class=field>
+                <TBODY>
+                  <TR>
+    <TD class=field>标　　题：</TD>
+    <TD>
+        <INPUT id=add_action_title class=text type=text name=title v-model="title"
+          @blur="yanztitle(title)">
+        <INPUT id=house_id class=text type="hidden" name=id :value="hobj.id">文字
+      </TD>
+    </TR>
+    <TR>
+      <TD class=field>厅室类型：</TD>
+      <TD><SELECT class=textt name=typeId v-model=typeId>
+          <option value="">请选择</option>
+          <OPTION v-for="item in types" v-bind:value="item.id">{{item.name}}</OPTION>
+        </SELECT>
+    </TR>
+    <TR>
+      <TD class=field>面　　积：</TD>
+      <TD><INPUT id=add_action_floorage class=text type=text name=floorage v-model="floorage"
+          @blur="yanzfloorage(floorage)">平方米</TD>
+    </TR>
+    <TR>
+      <TD class=field>价　　格：</TD>
+      <TD><INPUT id=add_action_price class=text type=text name=price v-model="price"
+          @blur="yanzprice(price)"> 月/元</TD>
+    </TR>
+    <TR>
+      <TD class=field>发布日期：</TD>
+      <TD><INPUT class=text type="date" id=da @blur="bbb()" name=pubdate :value='fmtdate(hobj.pubdate,"yyyy-MM-dd")'  >最新</TD>
+    </TR>
+    <TR>
+      <TD class=field>位　　置：</TD>
+      <TD style="line-height: 35px;">
+        <!--Begin 所在地区 Begin:value='hobj.pubdate|fmtdate'    required="required"-->
+        <span class="s_city_b">
+          <span class="fl">[</span>
+          <span class="s_city">
+            <span><span style="color:rgb(13, 194, 67);"><em>{{Sheng.name}}</em></span>]</span>
+            <div class="s_city_bg">
+              <div class="s_city_t"></div>
+              <div class="s_city_c">
+                <h2>请选择所在地区</h2>
+                <table border=0 class="c_tab" style="width:235px; margin-top:10px;" cellspacing="0"
+                  cellpadding="0">
+                  <tr>
+                    <th>A</th>
+                    <td class="c_h"><span @click="dians(12)">安徽</span><span @click="dians(27)">澳门</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>B</th>
+                    <td class="c_h"><span @click="dians(34)">北京</span></td>
+                  </tr>
+                  <tr>
+                    <th>C</th>
+                    <td class="c_h"><span @click="dians(13)">重庆</span></td>
+                  </tr>
+                  <tr>
+                    <th>F</th>
+                    <td class="c_h"><span @click="dians(18)">福建</span></td>
+                  </tr>
+                  <tr>
+                    <th>G</th>
+                    <td class="c_h"><span @click="dians(2)">广东</span><span @click="dians(20)">广西</span>
+                      <span @click="dians(9)">贵州</span><span @click="dians(28)">甘肃</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>H</th>
+                    <td class="c_h">
+                      <span @click="dians(25)">河北</span><span @click="dians(3)">河南</span>
+                      <span @click="dians(1)">黑龙江</span><br><span @click="dians(16)">海南</span>
+                      <span @click="dians(7)">湖北</span><span @click="dians(15)">湖南</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>J</th>
+                    <td class="c_h"><span @click="dians(21)">江苏</span><span @click="dians(30)">吉林</span>
+                        <span @click="dians(23)">江西</span></td>
+                  </tr>
+                  <tr>
+                    <th>L</th>
+                    <td class="c_h"><span @click="dians(6)">辽宁</span></td>
+                  </tr>
+                  <tr>
+                    <th>N</th>
+                    <td class="c_h"><span @click="dians(4)">内蒙古</span><span @click="dians(19)">宁夏</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Q</th>
+                    <td class="c_h"><span @click="dians(17)">青海</span></td>
+                  </tr>
+                  <tr>
+                    <th>S</th>
+                    <td class="c_h"><span @click="dians(10)">上海</span><span @click="dians(11)">山东</span>
+                      <span @click="dians(32)">山西</span>
+                      <span @click="dians(29)">四川</span><span @click="dians(8)">陕西</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>T</th>
+                    <td class="c_h"><span @click="dians(24)">台湾</span><span @click="dians(31)">天津</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>X</th>
+                    <td class="c_h"><span @click="dians(14)">西藏</span><span @click="dians(26)">香港</span>
+                      <span @click="dians(5)">新疆</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Y</th>
+                    <td class="c_h"><span @click="dians(33)">云南</span></td>
+                  </tr>
+                  <tr>
+                    <th>Z</th>
+                    <td class="c_h"><span @click="dians(22)">浙江</span></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </span>
+        </span>
+        <!--End 所在地区 End-->
+        市:<SELECT id=shi class=text1 name=sid @change="loadShi()" v-model=sid>
+          <option value="">请选择</option>
+          <OPTION v-for="s in Shi" v-bind:value="s.id">{{s.name}}</OPTION>
+        </SELECT>
+        区域:<SELECT id=xian class=text2 name=xid @change="loadXian()" v-model=xid>
+          <option value="">请选择</option>
+          <OPTION v-for="x in Xian" v-bind:value="x.id">{{x.name}}</OPTION>
+        </SELECT>
+        乡镇:<SELECT id=zhen class=text3  name=streetId v-model=zid>
+          <option value="">请选择</option>
+          <OPTION v-for="z in Zhen" v-bind:value="z.id">{{z.name}}</OPTION>
+        </SELECT>
+      </TD>
+    </TR>
+    <!-- 
+<tr>
+<td class="field">坐  标：</td>
+<td><input type="text" class="text" name="point" />
+</td>
+</tr>style="column-span: 2;"
+-->
+    <!--  <tr>
+<td class="field">Y 坐  标：</td>
+<td><input type="text" class="text" name="point.y" /></td>
+</tr>-->
+    <TR>
+      <TD class=field>联系方式：</TD>
+      <TD><INPUT id=add_action_contact class=text type=text name=contact v-model="contact"
+          @blur="yanzcontact(contact)"> 最新</TD>
+    </TR>
+    <TR>
+      <TD class=field>详细信息：</TD>
+      <TD> <textarea class="text" placeholder="请输入不少于15字的介绍！" name=description v-model="description"
+          @blur="yanztext(description)"
+          style="border:1px silod lightseagreen;overflow:auto; color:#1b0101;width:280px;"></textarea>
+        <span v-if="description.length>20" style="color: rgb(13, 194, 67);">√</span>
+        <span v-if="description.length&lt;20" style="color: red;">*</span>
+      </TD>
+    </TR>
+    <TR>
+      <td>
+      </td>
+    </TR>
+  </TBODY>
+</TABLE>
+<div class="uploadFile">
+  <!-- ul、li标签用于展示从本地添加的预览图片 -->
+  <ul class="pics">
+    <li v-for="(item,index) in uploadImg" :key="index" class="addPic">
+      <img :src="item"/>
+    </li>
+  </ul>
+  <div class="pfilediv" v-show="imgnames">
+    <!--
+<input type="file" id="pfile0" accept="image/*" @change="getPicture($event)" name=pfiles v-show="imgnames"> 
+<input type="file" id="pfile1" accept="image/*" @change="getPicture($event)" name=pfiles v-show="imgnames">
+<input type="file" id="pfile2" accept="image/*" @change="getPicture($event)" name=pfiles v-show="imgnames">
+<input type="file" id="pfile3" accept="image/*" @change="getPicture($event)" name=pfiles v-show="imgnames">
+  -->
+</div>
+  <p>jpg/png/gif图片<br><a @click="callFile()" >&nbsp;&nbsp;添加</a> &nbsp;|  &nbsp;<a @click="delnum()">删掉 </a><br></p>
+</div>
+<div class="uploadFile">
+  <!-- ul、li标签用于展示从本地添加的预览视频
+   -->
+   <ul>
+   <li v-for="(item,index) in uploadvideo" :key="index" class="addvideo">
+    <video id="video" :src="item" class="video" width="320" height="120" 
+    controls="controls"  preload autoplay controls loop muted></video>               
+    <input type="hidden" name="thumb" id="thumb" value="">
+  </li>
+</ul>
+  <input type="file" id="filevideo" accept="video/*" capture="camcorder" name=videofile v-model="videofile" @change="getvideo($event)"> 
+  <p>MP4/mpeg/视频<br><a @click="callvideo()" >&nbsp;&nbsp;添加</a> &nbsp;|  &nbsp;<a @click="delvideo()">删掉 </a><br></p>
+</div>
+
+<DIV class=buttons><INPUT @click="cjupdateh();" value=更新发布 type=button>
+
+</DIV>
+</DIV>
+</FORM>
+
+</DIV>
+</DIV>
+</DIV>
+<DIV id=footer class=wrap>
+
+<div id="footer" >
+<div class="footer-wrap cw">
+<a href="#" class="fr question"><img class="v-middle" src="../images/login/comment.png">登陆页面，调查问卷</a>
+<div class="clear"></div>
+<div class="links fz0 text-center">
+<a href="#">关于我们</a>
+<a href="#">联系我们</a>
+<a href="#">人才招聘</a>
+<a href="regsmer.html">商家入驻</a>
+<a href="#">广告服务</a>
+<a href="#">友情链接</a>
+<a href="#">销售联盟</a>
+<a href="#">意见反馈</a>
+<a href="#">帮助中心</a>
+<a href="#">English Site</a>
+</div>
+<div class="copyright text-center" style="text-align-last: center;">惠民小家租房网 © 2018 彡小小家 粤ICP证4056801号</div>
+</div>
+</div>
+</div>
+</BODY>
+</HTML>
+<script>
+
+  // 配置请求的基准URL地址
+ 
+  
+  //在前端页面中设置支持sesson共享floorage price
+  //axios.defaults.withCredentials = true;
+  var reg_title = /^[a-zA-Z_$\u4e00-\u9fa5][a-z0-9A-Z_$\u4e00-\u9fa5，,\.。！@；;]{1,9}$/;
+  var reg_floorage = /^[0-9]{1,5}$/;
+  var reg_price = /^[0-9]{2,5}$/;
+  var reg_contact = /^1[35789]\d{9}$/;
+  var reg_text = /[a-z0-9A-Z_$\u4e00-\u9fa5，,\.。！@；;]{15,100}$/;
+
+ 
+  var vue = new Vue({
+    el: "#app",
+    data: {
+      title: '',
+      imgf: null,
+      videofile:null,
+      contact: null,
+      types: null,  //存放租房所有据的模型数据
+      typeId:null,
+      Sheng: {},
+      Shengid: null,
+      Shi: null,//市
+      Zhen: null,//乡镇
+      Xian: null,//区域
+      temp: {},//市名称
+      sid: null,//市id
+      xid: null,//县id
+      zid: null,//乡镇id
+      qid: null,//指定乡镇-->对应县id
+      description: '',
+      pfile: '',
+      pubdate:null,
+      price: null,
+      floorage: null,
+      path:'',
+      uploadImg: [],
+      addImg:[],
+      upImg:[],
+      arr:[],
+      imgnames:false,
+      i:-1,
+      uploadvideo:[],
+      mediaRecorder :null,
+      constraints:null,
+      hobj:{},
+      toplogo:'null',
+      mername:'null',
+      nginxUrl:nginxUrl
+    },
+    computed: {
+  
+    },
+    mounted: function () {
+  
+    
+        //加载要修改的house的信息
+       //从localStorage对象中获取信息
+       var Hid=localStorage.getItem("Hid");
+      //alert("获取的id编号:"+id);
+      axios.get('house/getUpdateHouse', {
+          params: {   //表示给服务器传递的参数ret.data.data.pubdate+''
+             id:Hid
+          }
+        }).then((ret) => {
+            this.hobj=ret.data.data; 
+            this.title=ret.data.data.title;
+            this.typeId=ret.data.data.typeId;
+            this.floorage=ret.data.data.floorage;
+            this.price=ret.data.data.price;
+            console.log(new Date(parseInt("2014-4-23")))
+            axios.get('/getlogo',{params:{'uid':ret.data.data.userId}}).then((ret) => {
+          //获取后台数据
+          this.toplogo = ret.data;
+
+        });
+        axios.get('users/getUserMESSAGE',{params:{'uid':ret.data.data.userId}}).then((ret) => {
+          //获取后台数据
+          this.mername = ret.data.data.name;
+        });
+           //this.pubdate=fmtdate(ret.data.data.pubdate,"yyyy-MM-dd");
+           //this.pubdate=new Date(parseInt("2014-4-23"));
+            this.zid=ret.data.data.jid;
+            this.description=ret.data.data.description;
+            this.contact=ret.data.data.contact;
+
+            this.uploadvideo.push(this.nginxUrl+'videos/'+ret.data.data.video);
+            this.arr=ret.data.data.path.split(',');
+            console.log(ret.data.data.path.split(','))
+            ret.data.data.path.split(',').forEach((item,index,arr)=>{             
+              if(item!='null'&&item!=''){
+                this.addImg.push(this.nginxUrl+item);
+                this.uploadImg.push(this.nginxUrl+item);
+              }      
+            })
+
+   //加载镇
+   axios.get('pubQU/pubPub', { params: { 'id': ret.data.data.jid} }).then((ret) => {
+        //获取乡镇后台数据pid
+        this.xid=ret.data.data.pid;
+        axios.get('pubQU/pubPub', { params: { 'id': ret.data.data.pid } }).then((ret) => {
+        //获取县后台数据pid       
+        this.sid=ret.data.data.pid;
+        //this.temp=ret.data.data;
+        axios.get('pubQU/pubPub', { params: { 'id': ret.data.data.pid} }).then((ret) => {
+        //获取市后台数据pid
+        this.temp=ret.data.data;
+        this.Shengid = ret.data.data.pid;
+        axios.get('pubQU/pubPub', { params: { 'id': ret.data.data.pid} }).then((ret) => {
+        //获取省后台数据
+        this.Sheng = ret.data.data;  
+      });      
+  //加载市
+  axios.get('pubQU/pubShi', { params: { 'pid': ret.data.data.pid } }).then((ret) => {
+        this.Shi = ret.data.data;
+
+        //加载县区域
+        axios.get('pubQU/pubXian', { params: { 'pid': this.sid } }).then((ret) => {
+          //获取后台数据
+          this.Xian = ret.data.data;
+
+          axios.get('pubQU/pubZhen', { params: { 'pid': this.xid } }).then((ret) => {
+            //获取乡镇后台数据
+            this.Zhen = ret.data.data;
+          })
+        })
+      });
+      });
+      });
+      });
+
+        }) 
+
+  
+    //发送异步请求获取数据--户型
+    axios.get('type/getTypeData').then((ret) => {
+        //获取后台数据
+        this.types = ret.data.data;
+      });
+   
+
+    
+
+    },
+    methods: {
+
+     
+      bbb(){
+        console.log($('#da').val()+";;;;;;;");
+      },
+      dians: function (id) {
+        //清除之前
+        this.sid = null; this.xid = null; this.zid = null;
+         this.Xian= null;this.Shi= null;this.Zhen= null;
+        this.Shengid = id;
+        axios.get('pubQU/pubPub', { params: { 'id': id } }).then((ret) => {
+          //获取省后台数据
+          this.Sheng = ret.data.data;
+        });
+        //加载市
+        axios.get('pubQU/pubShi', { params: { 'pid': id } }).then((ret) => {
+          this.Shi = ret.data.data;
+
+          //加载县区域
+          axios.get('pubQU/pubXian', { params: { 'pid': ret.data.data.id } }).then((ret) => {
+            //获取后台数据
+            this.Xian = ret.data.data;
+
+            axios.get('pubQU/pubZhen', { params: { 'pid': ret.data.data.id } }).then((ret) => {
+              //获取乡镇后台数据
+              this.Zhen = ret.data.data;
+
+            })
+          })
+        });
+      },
+
+      loadShi: function () {
+        //清除之前 
+        this.xid = null; this.zid = null;
+        console.log(this.sid);
+        axios.get('pubQU/pubXian', { params: { 'pid': this.sid } }).then((ret) => {
+          //获取县区后台数据
+          this.Xian = ret.data.data;
+          axios.get('pubQU/pubZhen', { params: { 'pid': this.xid } }).then((ret) => {
+            //获取乡镇后台数据
+            this.Zhen = ret.data.data;
+
+          })
+        })
+        axios.get('pubQU/pubPub', { params: { 'id': this.sid } }).then((ret) => {
+          //获取省后台数据
+          this.temp = ret.data.data;
+          // $(".s_city em").html(this.temp.name); 
+        });
+      },
+      loadXian: function () {
+        //清除之前
+        this.zid = null;
+        axios.get('pubQU/pubZhen', { params: { 'pid': this.xid } }).then((ret) => {
+          //获取乡镇后台数据
+          /**ret.data.data.forEach((item, index,arr) => {
+                           this.sid=item.pid;
+                      });**/
+          this.Zhen = ret.data.data;
+        })
+
+      },
+      updateh: function () {   //发布出租房
+        //1.使用FormData序列化表单(有文件上传必需用它，且表单添加entype属性以post方式提交)
+        var formData = new FormData(document.getElementById("form1"));
+        //遍历this.imgnames文件流图片拼装到FormData中
+        console.log(this.arr)
+        this.arr.forEach((item,index,arr)=>{
+          if(item!='null'&&item!=''){
+          this.path=this.path+','+item;
+        }
+        })
+        console.log("arr处理后："+this.arr)
+       formData.append('path',this.path);
+        axios.post(`house/updateHouseData`, formData).then((ret) => {
+          var result = ret.data.code;
+          if (result == 1) {
+            //alert("发布成功");
+             localStorage.setItem("id",this.hobj.userId);
+             //从localStorage对象中获取信息
+               var curpage=localStorage.getItem("curpage");
+             localStorage.setItem('curpage0a',curpage);
+            location.href = "cjguanli.html";
+          } else {
+            alert("更新失败!" + ret.data.message);//不是给用户看的 前端开发人员看
+          }
+        });
+      },
+
+
+
+      delnum:function(){
+       
+        //delete this.uploadImg[id];删除数组指定元素
+        if(vue.upImg.length>0){
+          if(vue.i>=0){
+        //lastElementChild方法可以用来获取元素最后一个子元素标签<li>
+        $('.pics')[0].lastElementChild.removeChild;      
+        $('#pfile'+vue.i).remove();
+        vue.upImg.pop();//删除数组最后一个元素this.path=
+        vue.uploadImg.pop();
+        vue.i--;
+        console.log(vue.upImg)
+      }else{return vue.i=-1;}
+        
+        }else{
+
+         if(vue.arr.length>0){
+              //lastElementChild.innerHTML方法可以用来获取元素最后一个子元素标签<img>
+        $('.pics')[0].lastElementChild.remove();
+       // $('#pfile'+this.i).remove();
+       vue.arr.pop();
+       vue.addImg.pop();
+       vue.uploadImg.pop();
+         console.log(vue.arr+"==="+vue.addImg)
+      } 
+         }
+   
+      },
+      getPicture:function(e) {
+        //预览图片
+        let src = window.URL.createObjectURL(e.target.files[0]);
+        this.upImg.push(src);
+        this.uploadImg.push(src);
+        var imgSize = e.target.files[0].size;  //b
+        if (imgSize > 1024 * 1024 * 5) {//5M
+          this.i=4;
+          this.uploadImg.pop();
+          return alert("上传图片不能超过5M");
+        }
+        if (e.target.files[0].type != 'image/png' && e.target.files[0].type != 'image/jpeg' && e.target.files[0].type != 'image/gif') {
+          this.i=4;
+          this.uploadImg.pop();
+          return alert("图片上传格式不正确");
+        }
+        //将图片文件转化成base64格式图片
+        var reader = new FileReader();
+        reader.onload = (e) => {
+          //e.target.result  就是从本地读取的图片的base64格式,将它上传图片数据给服务器即可
+          //使用axios的post方法上传即可
+        }
+        reader.readAsDataURL(e.target.files[0])       
+      },
+ 
+ 
+      callFile:function() {
+        if (vue.uploadImg.length >= 4) {
+          vue.i=4;
+          return alert("最多只能上传4张图片");
+        }
+        if(vue.i>=4){
+          return;
+        }else{
+          vue.i++;
+          $(".pfilediv").append('<input  id="pfile'+vue.i+'"type="file" accept="image/*" @change="getPicture($event)" name=pfiles v-show="imgnames">');
+       $("#pfile"+vue.i)[0].click();
+       $("#pfile"+vue.i).on('change',function(){
+         //预览图片
+        let src = window.URL.createObjectURL(this.files[0]);
+        vue.upImg.push(src);
+        vue.uploadImg.push(src);
+        var imgSize = this.files[0].size;  //b
+        if (imgSize > 1024 * 1024 * 5) {//5M
+          vue.i=4;
+          vue.uploadImg.pop();
+          return alert("上传图片不能超过5M");
+        }
+        if (this.files[0].type != 'image/png' && this.files[0].type != 'image/jpeg' && this.files[0].type != 'image/gif') {
+          vue.i=4;
+          vue.uploadImg.pop();
+          return alert("图片上传格式不正确");
+        }
+        //将图片文件转化成base64格式图片
+        var reader = new FileReader();
+        reader.onload = (e) => {
+          //e.target.result  就是从本地读取的图片的base64格式,将它上传图片数据给服务器即可
+          //使用axios的post方法上传即可
+        }
+        reader.readAsDataURL(this.files[0])    
+        });
+       
+        console.log($("#pfile"+vue.i)[0].id+"=="+vue.i);
+        
+        }
+        vue.uploadImg.forEach((item,index,arr) => {
+          console.log(item)
+        });
+      },
+
+
+//----------视频添加删除
+      delvideo:function(){
+        //lastElementChild.innerHTML方法可以用来获取元素最后一个子元素标签
+        $('.addvideo')[0].lastElementChild.innerHTML=null;
+        //delete this.uploadImg[id];删除数组指定元素
+        this.uploadvideo.pop();//删除数组最后一个元素
+      },
+      getvideo(e) {
+        //预览视频
+        let src = window.URL.createObjectURL(e.target.files[0]);
+ 
+        this.uploadvideo.push(src);
+      
+        if (this.uploadvideo.length >= 2) {
+          this.uploadvideo.pop();
+          return alert("最多只能上传1个视频");
+        }
+        var videoSize = e.target.files[0].size;  //b
+        if (videoSize > 1024 * 1024 * 50) {//5M
+          this.uploadvideo.pop();
+          return alert("上传视频不能超过50M");
+        }
+        if (e.target.files[0].type != 'video/mp4' && e.target.files[0].type != 'video/mpeg4' && e.target.files[0].type != 'video/avi') {
+          this.uploadvideo.pop();
+          return alert("视频上传格式不正确");
+        }
+        //将图片文件转化成base64格式图片
+        var reader = new FileReader();
+        reader.onload = (e) => {
+          //e.target.result  就是从本地读取的图片的base64格式,将它上传给服务器即可
+          //使用axios的post方法上传即可
+        }
+        reader.readAsDataURL(e.target.files[0]);
+
+      },
+      callvideo() {
+        //点击添加图片按钮，触发type:"file"的input标签
+        let filevideo = $("#filevideo")[0];
+        filevideo.click();
+      },
+
+      yanztitle: function (text) {
+        if (!reg_title.test(text)) {
+          this.title = text;
+          alert("商家标题(2-10)字!");
+        } else {
+
+          this.title = text;
+        }
+
+      },
+      yanzfloorage: function (text) {
+        if (!reg_floorage.test(text)) {
+          this.floorage = text;
+          alert("请输入至少一位数数字!");
+        } else {
+
+          this.floorage = text;
+        }
+
+      },
+      yanzprice: function (text) {
+        if (!reg_price.test(text)) {
+          this.price = text;
+          alert("请输入至少两位数数字!");
+        } else {
+
+          this.price = text;
+        }
+
+      },
+      yanzcontact: function (text) {
+        if (!reg_contact.test(text)) {
+          this.contact = text;
+          alert("请输入正确的手机格式!");
+        } else {
+
+          this.contact = text;
+        }
+
+      },
+      yanztext: function (text) {
+        if (!reg_text.test(text)) {
+          this.description = text;
+          alert("商家描述15-100字!");
+        } else {
+
+          this.description = text;
+        }
+
+      },
+   
+
+      },
+      filters:{
+          
+      },
+      
+  });
+function  fmtdate (ydate,fmt) {
+              let date=new Date(ydate);
+            if (/(y+)/.test(fmt)) {
+              fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length))
+            }
+            let o = {
+              'M+': date.getMonth() + 1,
+              'd+': date.getDate(),
+              'h+': date.getHours(),
+              'm+': date.getMinutes(),
+              's+': date.getSeconds()
+            }
+            for (let k in o) {
+              if (new RegExp(`(${k})`).test(fmt)) {
+                let str = o[k] + ''
+                fmt = fmt.replace(RegExp.$1, RegExp.$1.length === 1 ? str : ('00' + str).substr(str.length))
+              }
+            }
+            return fmt
+          }
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
